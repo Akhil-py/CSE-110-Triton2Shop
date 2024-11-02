@@ -12,3 +12,9 @@ UCSD students often face stress during move-in and move-out periods, factored by
    cp .env.template .env
    ```
 2. Fill in the necessary environment variables in the `.env` file.
+3. Run `npm install` in both the `client` and `server` directories.
+4. Run the `client` and `server` directories seperately with:
+    ```bash
+    npm run build
+    npm start
+    ```
