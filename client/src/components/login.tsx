@@ -1,66 +1,51 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import './login.css'; // Import your CSS file
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+/* Consts */
+const LOGO = '/ucsd-logo.png'
+const GEISELIMAGE = '/chicken.jpeg'
 
 const Login: React.FC = () => {
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: '',
-    password: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // form submission logic here
-    console.log('Form submitted:', formData);
-  };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h1>LOGIN</h1>
-        <p>Please login with your @ucsd.edu email address</p>
+    <div className="login-container">
+      <div className="login-form-container">
+        <img src={LOGO} alt="Triton2Shop Logo" className="logo" />
+        <h2 className="login-title">LOGIN</h2>
+        <p className="login-instructions">
+          Please login with your @ucsd.edu email address
+        </p>
+        <form className="login-form">
+            <div className="email-input">
+                <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>Email</label>
+                <input type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder=" " required />
+            </div>
+          
+          <div className="password-input">
+            <label htmlFor="password" className={`floating-label ${password ? 'active' : ''}`}>Password</label>
+            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" " required />
+          </div>
+          
+          <button type="submit" className="sign-in-button">Sign in</button>
+          
+          <div className="form-footer">
+            <label className="remember-me">
+              <input type="checkbox" /> Remember me
+            </label>
+            <a href="/forgot-password" className="forgot-password">Forgot password</a>
+          </div>
+
+          <p className="new-user">
+            New User? <a href="/signup">Create an account instead</a>
+          </p>
+        </form>
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
+      <div className="image-container">
+        <img src={GEISELIMAGE} alt="STUDENTS EXCHANGING GOODS IN FRONT OF GEISEL" className='geisel-image' />
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <button type="submit">Login</button>
-      </div>
-      <div>
-        <Link to="/signup">New User? Create an account instead</Link>
-      </div>
-    </form>
+    </div>
   );
 };
 
