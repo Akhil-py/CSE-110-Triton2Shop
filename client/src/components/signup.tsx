@@ -26,7 +26,7 @@ const Signup: React.FC = () => {
         <div className="input-container">
           <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder=" " />
           <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>
-            Email
+            UCSD Email (ucsd.edu)
           </label>
         </div>
 

@@ -14,9 +14,6 @@ const Login: React.FC = () => {
       <div className="login-form-container">
         <img src={LOGO} alt="Triton2Shop Logo" className="logo" />
         <h2 className="login-title">LOGIN</h2>
-        <p className="login-instructions">
-          Please login with your @ucsd.edu email address
-        </p>
         <form className="login-form">
             <div className="email-input">
                 <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>Username or Email</label>

@@ -20,8 +20,8 @@
     font-size: 48px;
     font-weight: bold;
     letter-spacing: 1px;
-    color: navy;
-    margin-bottom: 4px;
+    color: black;
+    margin-bottom: 46px;
 }
 
 .login-instructions {
@@ -41,14 +41,12 @@
   background: transparent;
 }
 
-/* Container for email input */
 .email-input,
 .password-input {
   position: relative;
   margin-bottom: 16px;
 }
 
-/* Floating label styling */
 .email-input label,
 .password-input label {
   position: absolute;
@@ -67,13 +65,11 @@
     transition: all .2s ease-in-out; 
 }
 
-/* Active state for floating labels */
 .active {
   top: -10px; 
   font-size: 12px;
 }
 
-/* When the input is focused or has content, move the label up */
 input:focus ~ .floating-label,
 input:not(:placeholder-shown) ~ .floating-label {
   top: -15px; 
@@ -81,11 +77,9 @@ input:not(:placeholder-shown) ~ .floating-label {
   color: #333; 
 }
 
-/* Placeholder Styling */
 input::placeholder {
   color: transparent; 
 }
-
 
 .sign-in-button{
     width :100%;
@@ -100,33 +94,35 @@ input::placeholder {
 }
 
 .form-footer{
-    display:flex ;
-    justify-content :space-between ;
-    align-items:center ;
-    margin-top :15 px ;
-    margin-bottom :20 px ;
+    display:flex;
+    justify-content :space-between;
+    align-items:center;
+    margin-top :15px;
+    margin-bottom :20px;
 }
 
 .remember-me input[type=checkbox]{
-    margin-right :5 px ;
+    margin-right : 2px;
+    width: 13px;
+    height: 13px;
 }
 
 .forgot-password{
     color:#666 ;
     text-decoration:none ;
+    margin-left: 80px;
 }
 
 .forgot-password:hover{
-    text-decoration :underline ;
+    text-decoration : underline;
 }
 
-/* New user link styling*/
 .new-user{
-   text-align:center ;
+   text-align: center;
 }
 
 .new-user a{
-   color:#007 bff ; 
+   color:#007bff; 
 }
 
 .new-user a:hover{
