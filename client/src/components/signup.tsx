@@ -1,80 +1,57 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import './signup.css'; // Importing the CSS file
 
-interface SignupFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+/* Consts */
+const LOGO = '/ucsd-logo.png';
 
-const SignupForm: React.FC = () => {
-  const [formData, setFormData] = useState<SignupFormData>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // form submission logic here
-    console.log('Form submitted:', formData);
-  };
+const Signup: React.FC = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h1>Signup</h1>
-        <p>Please signup with you @ucsd.edu email address</p>
-      </div>  
-      <div>
-        <label htmlFor="email">Email: </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="confirmPassword">Confirm Password: </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <button type="submit">Sign Up</button>
-      </div>
-      <div>
-        <Link to="/login">Already have an account? Login Instead</Link>
-      </div>
-    </form>
+    <div className="signup-container">
+      <img src={LOGO} alt="Triton2Shop Logo" className="logo" />
+      
+      <h2 className="signup-title">SIGN UP</h2>
+      <form className="signup-form">
+        <div className="input-container">
+          <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder=" " />
+          <label htmlFor="username" className={`floating-label ${username ? 'active' : ''}`}>
+            Username
+          </label>
+        </div>
+
+        <div className="input-container">
+          <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder=" " />
+          <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>
+            Email
+          </label>
+        </div>
+
+        <div className="input-container">
+          <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder=" "/>
+          <label htmlFor="password" className={`floating-label ${password ? 'active' : ''}`}>
+            Password
+          </label>
+        </div>
+
+        <div className="input-container">
+          <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder=" "/>
+          <label htmlFor="confirm-password" className={`floating-label ${confirmPassword ? 'active' : ''}`}>
+            Confirm Password
+          </label>
+        </div>
+
+        <button type="submit" className="sign-up-button">Sign Up</button>
+
+        <p className="existing-user">
+          Already have an account? <a href="/login">Log in instead</a>
+        </p>
+      </form>
+    </div>
   );
 };
 
-export default SignupForm;
+export default Signup;

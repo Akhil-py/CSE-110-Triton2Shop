@@ -1,0 +1,82 @@
+/* General container for centering the form */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: auto;
+    height: auto;
+    margin-bottom: 20px; /* Space below the logo */
+  }
+  
+  /* Title styling */
+  .signup-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Space below the title */
+  }
+  
+  /* Input container for floating labels */
+  .input-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .floating-label {
+    position: absolute;
+    top: calc(50% - 10px); /* Centered vertically initially */
+    left: 0;
+    font-size: 16px;
+    color: #aaa;
+  }
+  
+  .active,
+  input:not(:placeholder-shown) + .floating-label,
+  input:focus + .floating-label {
+     top:-20 px ; /* Moves label above input*/
+     font-size :12 px ;
+     color:#333 ; /* Darker color when active*/
+  }
+  
+  /* Input field styling*/
+  input{
+     width :100% ;
+     padding :10px ;
+     border:none ;
+     border-bottom :solid thin #ccc ; 
+     background-color :transparent ;
+  }
+  
+  /* Sign-up button styling*/
+  .sign-up-button{
+     width :100% ;
+     padding :12px ;
+     background-color:black ; 
+     color:white ; 
+     border-radius :4px ;
+     margin-top :20px ; /* Add some space above the button*/
+  }
+  
+  .sign-up-button:hover{
+      background-color:#333 ; 
+  }
+  
+  /* Existing user link styling */
+  .existing-user {
+      text-align:center ;
+      margin-top :15 px ; /* Space above the new user section*/
+  }
+  
+  .existing-user a{
+     color:#007 bff ; 
+  }
+  
+  .existing-user a:hover{
+     text-decoration :underline ;
+  }

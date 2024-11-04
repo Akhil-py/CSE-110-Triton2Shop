@@ -19,7 +19,7 @@ const Login: React.FC = () => {
         </p>
         <form className="login-form">
             <div className="email-input">
-                <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>Email</label>
+                <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>Username or Email</label>
                 <input type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder=" " required />
             </div>
           
