@@ -1,0 +1,95 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 15px;
+    transition: 0.5s;
+    position: sticky;
+    top: 0;
+}
+
+.logo-search-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+    cursor: pointer;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #242424;
+    padding: 10px 20px;
+    border-radius: 50px;
+    width: 400px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    padding-right: 30px;
+}
+
+.search-box input::placeholder {
+    color: white;
+}
+
+.search-box img {
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-items a {
+    font-size: 18px;
+    color: inherit;
+    /* Inherits color from parent, adjusts automatically with theme */
+    text-decoration: none;
+    /* Removes underline from links */
+    cursor: pointer;
+}
+
+.nav-items a:hover {
+    text-decoration: underline;
+    /* Optional: adds underline on hover */
+}
+
+.toggle-icon {
+    width: 30px;
+    cursor: pointer;
+}
+
+.dark .navbar {
+    background: #000;
+    color: #fff;
+}
+
+.dark .search-box {
+    background-color: #fff;
+}
+
+.dark .search-box input {
+    color: #222;
+}
+
+.dark .search-box input::placeholder {
+    color: #222;
+}

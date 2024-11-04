@@ -1,34 +1,27 @@
-import { createContext, useState } from "react";
-import { Expense } from "../types/types";
-
-// Exercise: Create add budget to the context
+import { createContext, useState, useEffect } from "react";
 
 interface AppContextType {
-    expenses: Expense[];
-    setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
-    budget: number;
-    setBudget: React.Dispatch<React.SetStateAction<number>>;
+    theme: string;
+    setTheme: (theme: string) => void;
 }
 
 const initialState: AppContextType = {
-    expenses: [],
-    setExpenses: () => { },
-    budget: 1000, // initally,
-    setBudget: () => { },
+    theme: "light",
+    setTheme: () => { },
 };
 
 export const AppContext = createContext<AppContextType>(initialState);
 
 export const AppProvider = (props: any) => {
-    const [expenses, setExpenses] = useState<Expense[]>(initialState.expenses);
-    const [budget, setBudget] = useState<number>(initialState.budget);
+    const [theme, setTheme] = useState<string>(localStorage.getItem('current_theme') || initialState.theme);
+    useEffect(() => {
+        localStorage.setItem('current_theme', theme);
+    }, [theme]);
     return (
         <AppContext.Provider
             value={{
-                expenses: expenses,
-                setExpenses: setExpenses,
-                budget: budget,
-                setBudget: setBudget,
+                theme: theme,
+                setTheme: setTheme
             }}
         >
             {props.children}

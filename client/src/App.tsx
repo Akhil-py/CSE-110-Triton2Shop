@@ -1,10 +1,14 @@
 import { AppProvider } from "./context/AppContext";
-import { HomePage } from "./views/HomePage"
-
+import { HomePage } from "./views/HomePage";
+import { Route, Routes } from "react-router-dom";
+import Login from "./Components/Login/Login";
 const App = () => {
   // HINT: Wrap the MyBudgetTracker component with AppContextProvider
   return (<AppProvider>
-    <HomePage />
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login/" element={<Login />} />
+    </Routes>
   </AppProvider>);
 };
 
