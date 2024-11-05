@@ -16,14 +16,15 @@ export const Navbar: React.FC = () => {
     return (
         <div className='navbar'>
             <div className='logo-search-container'>
-                <img src={theme == 'light' ? logo_light : logo_dark} alt="UCSD Triton logo" className='logo' />
+                <Link to="/">
+                    <img src={theme === 'light' ? logo_light : logo_dark} alt="UCSD Triton logo" className='logo' />
+                </Link>
                 <div className='search-box'>
                     <input type="text" placeholder='Search'></input>
                     <img src={theme == 'light' ? search_icon_light : search_icon_dark} alt="" className='search-icon' />
                 </div>
             </div>
             <div className='nav-items'>
-                <Link to="/">Home</Link>
                 <Link to="/login">Log in</Link>
                 <img onClick={() => { toggleTheme() }} src={theme == 'light' ? toggle_light : toggle_dark} alt="" className='toggle-icon' />
             </div>

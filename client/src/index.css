@@ -8,7 +8,7 @@
 .container {
   width: 100vw;
   min-height: 100vh;
-  background: grey;
+  background: white;
   transition: 0.5s;
 }
 
