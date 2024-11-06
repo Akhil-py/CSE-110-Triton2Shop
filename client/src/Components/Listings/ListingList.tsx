@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ListingItem from './ListingItem';
 import './ListingList.css';
 import { AppContext } from '../../context/AppContext';
-import { Category } from '../../types/types';
+import { Category, Condition } from '../../types/types';
 
 type Listing = {
     id: number;
@@ -10,6 +10,7 @@ type Listing = {
     price: number;
     imageUrl: string;
     category: Category;
+    condition: Condition;
 };
 
 type ListingListProps = {
@@ -17,12 +18,13 @@ type ListingListProps = {
 };
 
 const ListingList: React.FC<ListingListProps> = ({ listings }) => {
-    const { category, minPrice, maxPrice } = useContext(AppContext);
+    const { category, minPrice, maxPrice, conditions } = useContext(AppContext);
 
     const filteredListings = listings.filter((listing) => {
         const matchesCategory = category === Category.All || listing.category === category;
         const withinPriceRange = listing.price >= minPrice && listing.price <= maxPrice;
-        return matchesCategory && withinPriceRange;
+        const matchesCondition = conditions.length === 0 || conditions.includes(listing.condition);
+        return matchesCategory && withinPriceRange && matchesCondition;
     });
 
     return (

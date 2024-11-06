@@ -7,3 +7,10 @@ export enum Category {
     ToysGames = "Toys, Games, & Hobbies",
     SportsOutdoors = "Sports & Outdoors",
 }
+
+export enum Condition {
+    New = "New",
+    openBox = "Open Box",
+    Reconditioned = "Reconditioned",
+    Used = "Used",
+}
