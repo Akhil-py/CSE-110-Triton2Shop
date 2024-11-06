@@ -4,6 +4,8 @@
     width: 100%;
     background: white;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    position: relative;
+    z-index: 1000;
 }
 
 .navbar-top {
@@ -72,11 +74,6 @@
     text-decoration: underline;
 }
 
-.toggle-icon {
-    width: 30px;
-    cursor: pointer;
-}
-
 .navbar-categories {
     display: flex;
     justify-content: center;
@@ -93,26 +90,9 @@
 
 .navbar-categories span:hover {
     color: #0078d7;
-    /* Optional: Highlight color on hover */
 }
 
-.more-dropdown {
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-    top: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.more-dropdown span {
-    padding: 5px;
-    cursor: pointer;
-}
-
-.more-dropdown span:hover {
-    background-color: #f0f0f0;
+.category-link.active {
+    color: #0078d7;
+    font-weight: bold;
 }

@@ -24,3 +24,9 @@ h3 {
 .listing-item:hover h3 {
     text-decoration: underline;
 }
+
+.listing-item h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
