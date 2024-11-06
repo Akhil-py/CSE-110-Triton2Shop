@@ -6,7 +6,7 @@ import { AppContext } from '../../context/AppContext'
 import { Link } from "react-router-dom";
 import { Category } from '../../types/types'
 export const Navbar: React.FC = () => {
-    const { category, setCategory } = useContext(AppContext)
+    const { category, setCategory, searchQuery, setSearchQuery } = useContext(AppContext)
     return (
         <div className='navbar'>
             <div className='navbar-top'>
@@ -15,7 +15,12 @@ export const Navbar: React.FC = () => {
                         <img src={logo_light} alt="UCSD Triton logo" className='logo' />
                     </Link>
                     <div className='search-box'>
-                        <input type="text" placeholder='Search'></input>
+                        <input
+                            type="text"
+                            placeholder='Search'
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                         <img src={search_icon_light} alt="Search Icon" className='search-icon' />
                     </div>
                 </div>
