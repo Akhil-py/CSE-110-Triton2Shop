@@ -1,24 +1,26 @@
 .navbar {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+}
+
+.navbar-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    padding: 15px;
-    transition: 0.5s;
-    position: sticky;
-    top: 0;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.logo-search-container {
-    display: flex;
-    align-items: center;
+    padding: 10px 15px;
 }
 
 .logo {
     width: 200px;
     cursor: pointer;
+}
+
+.logo-search-container {
+    display: flex;
+    align-items: center;
 }
 
 .search-box {
@@ -62,15 +64,12 @@
 .nav-items a {
     font-size: 18px;
     color: inherit;
-    /* Inherits color from parent, adjusts automatically with theme */
     text-decoration: none;
-    /* Removes underline from links */
     cursor: pointer;
 }
 
 .nav-items a:hover {
     text-decoration: underline;
-    /* Optional: adds underline on hover */
 }
 
 .toggle-icon {
@@ -78,19 +77,42 @@
     cursor: pointer;
 }
 
-.dark .navbar {
-    background: #000;
-    color: #fff;
+.navbar-categories {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
 }
 
-.dark .search-box {
-    background-color: #fff;
+.navbar-categories span {
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
 }
 
-.dark .search-box input {
-    color: #222;
+.navbar-categories span:hover {
+    color: #0078d7;
+    /* Optional: Highlight color on hover */
 }
 
-.dark .search-box input::placeholder {
-    color: #222;
+.more-dropdown {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.more-dropdown span {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.more-dropdown span:hover {
+    background-color: #f0f0f0;
 }

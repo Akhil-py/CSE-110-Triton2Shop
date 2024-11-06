@@ -1,11 +1,15 @@
 import React from 'react';
 import ListingItem from './ListingItem';
 import './ListingList.css';
+import { useContext } from 'react'
+import { AppContext } from '../../context/AppContext'
+import { Category } from '../../types/types'
 type Listing = {
     id: number;
     title: string;
     price: number;
     imageUrl: string;
+    category: Category;
 };
 
 type ListingListProps = {
@@ -13,9 +17,13 @@ type ListingListProps = {
 };
 
 const ListingList: React.FC<ListingListProps> = ({ listings }) => {
+    const { category } = useContext(AppContext);
+    const filteredListings = category === Category.All
+        ? listings
+        : listings.filter(listing => listing.category === category);
     return (
         <div className="listing-list">
-            {listings.map((listing) => (
+            {filteredListings.map((listing) => (
                 <ListingItem
                     key={listing.id}
                     title={listing.title}
