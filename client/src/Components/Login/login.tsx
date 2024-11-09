@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './login.css'; // Import your CSS file
+import './login.css'; 
 
 /* Consts */
 const LOGO = '/ucsd-logo.png'
