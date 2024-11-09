@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homepage-content {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    padding-left: 270px;
+}
+
+.listing-list {
+    margin-left: 0px;
+    width: 100%;
+}

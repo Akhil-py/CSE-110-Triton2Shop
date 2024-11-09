@@ -1,0 +1,98 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+.logo {
+    width: 200px;
+    cursor: pointer;
+}
+
+.logo-search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #242424;
+    padding: 10px 20px;
+    border-radius: 50px;
+    width: 400px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    padding-right: 30px;
+}
+
+.search-box input::placeholder {
+    color: white;
+}
+
+.search-box img {
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-items a {
+    font-size: 18px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-items a:hover {
+    text-decoration: underline;
+}
+
+.navbar-categories {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+}
+
+.navbar-categories span {
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-categories span:hover {
+    color: #0078d7;
+}
+
+.category-link.active {
+    color: #0078d7;
+    font-weight: bold;
+}

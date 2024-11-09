@@ -1,0 +1,84 @@
+.filter-container {
+    width: 250px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 170px;
+    left: 20px;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-container h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.filter-section h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.filter-section input[type="number"] {
+    width: 45%;
+    padding: 8px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-section button {
+    padding: 5px 10px;
+    background-color: #0078d7;
+    color: white;
+    border: 1px solid #0078d7;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filter-section label {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-section label input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.filter-section label span {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.filter-container .filter-section:last-child {
+    border-bottom: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
