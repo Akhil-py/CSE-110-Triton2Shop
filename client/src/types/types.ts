@@ -9,8 +9,10 @@ export enum Category {
 }
 
 export enum Condition {
-    New = "New",
-    openBox = "Open Box",
-    Reconditioned = "Reconditioned",
-    Used = "Used",
+    LikeNew = "Like New",
+    VeryGood = "Very Good",
+    Good = "Good",
+    Acceptable = "Acceptable",
+    Fair = "Fair",
+    Poor = "Poor",
 }
