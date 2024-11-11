@@ -24,7 +24,7 @@ const FavoriteList: React.FC<{ items: FavoriteItem[] }> = ({ items }) => {
         <div className="favorites-container">
             <h1>Favorites</h1>
             {favoriteItems.map((item, index) => (
-                <div key={index} className="favorite-item">
+                <div key={index} className="favorite-item" data-testid="items">
                     <div className="grid-container">
                         <h2 className="item-name">{item.name}</h2>
                         <img src={item.imageUrl} alt={item.name} className="item-image" />
@@ -33,7 +33,7 @@ const FavoriteList: React.FC<{ items: FavoriteItem[] }> = ({ items }) => {
                             <button className="buy-button">Buy</button>
                         </div>
                         <p className="description">{item.description}</p>
-                        <div className="remove-button" onClick={() => removeItem(index)}>&times;</div>
+                        <div className="remove-button" onClick={() => removeItem(index)}> X </div>
                     </div>
                 </div>
             ))}
