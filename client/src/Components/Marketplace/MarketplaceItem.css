@@ -1,4 +1,4 @@
-.listing-item {
+.Marketplace-item {
     border: none;
     padding: 10px;
     border-radius: 8px;
@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 
-.listing-image {
+.Marketplace-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -21,11 +21,11 @@ h3 {
     transition: text-decoration 0.3s ease;
 }
 
-.listing-item:hover h3 {
+.Marketplace-item:hover h3 {
     text-decoration: underline;
 }
 
-.listing-item h3 {
+.Marketplace-item h3 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

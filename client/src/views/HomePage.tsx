@@ -1,6 +1,6 @@
 import { Navbar } from "../Components/Navbar/Navbar";
 import './HomePage.css';
-import ListingList from "../Components/Listings/ListingList";
+import ListingList from "../Components/Marketplace/MarketplaceList";
 import { Category, Condition } from "../types/types";
 import Filter from "../Components/Filter/Filter";
 
@@ -18,7 +18,7 @@ export const HomePage = () => {
             <Navbar />
             <div className="homepage-content">
                 <Filter />
-                <ListingList listings={mockListings} />
+                <ListingList MarketplaceListings={mockListings} />
             </div>
         </div>
     );
