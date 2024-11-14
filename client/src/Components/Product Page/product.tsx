@@ -25,6 +25,14 @@ const ProductPage: React.FC<ProductItemProps> = ({
     sellerUsername = 'TritonLowBaller',
     sellerContact = '123-456-7890'
 }) => {
+    const favouriteHandler = () => {
+        console.log('Favourited!');
+    };
+
+    const buyHandler = () => {
+        console.log('Bought!');
+    };
+
     return (
         <div className='product-page'>
             <Navbar />
@@ -45,6 +53,14 @@ const ProductPage: React.FC<ProductItemProps> = ({
                             </div>
                             <p id='price'>Price: ${price}</p>
                             <p id='distance'>Distance: {distance} miles</p>
+                        </div>
+                        <div className='product-buttons'>
+                            <div className='favourite-button'>
+                                <button onClick={favouriteHandler}>Favourite</button>
+                            </div>
+                            <div className='buy-button'>
+                                <button onClick={buyHandler}>Buy</button>
+                            </div>
                         </div>
                         <div className='product-description'>
                             <p>{description}</p>
