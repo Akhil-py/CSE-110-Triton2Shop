@@ -9,6 +9,7 @@ import ProductPage from "./Components/Product Page/product";
 function App() {
   return (
     <AppProvider>
+
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
