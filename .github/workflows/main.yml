@@ -1,17 +1,30 @@
-name: Unit Tests # name of the test
+name: Run Tests in Specific Directory
 
 on:
- push:
-   branches: [ main ]  # or 'master' if that's your primary branch name
- pull_request:
-   branches: [ main ] # the Github Action will activate "on" the event that you "push" to the repo
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-jobs: # the things being executed
- tests: # the name of your status check, will become important when you do branch protection
-   runs-on: ubuntu-latest # which device on Github's server that you are running the Actions on
-   steps:
-     - uses: actions/checkout@v4 # using version 4 of Actions
-     - name: Install Dependencies
-       run: npm install
-     - name: Unit Test
-       run: npm test # the actual testing line
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16  # or the version your project requires
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ../CSE-110-Triton2Shop/client # Specify the directory
+
+    - name: Run tests
+      run: npm test
+      working-directory: ..//CSE-110-Triton2Shop/client # Specify the directory
