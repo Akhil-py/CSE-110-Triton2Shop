@@ -5,7 +5,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Signup from './Components/Signup/signup';
 import Login from './Components/Login/login';
-
+import { PostItem } from './Components/PostItem/PostItem';
 function App() {
   return (
     <AppProvider>
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/postitem" element={<PostItem />} />
         </Routes>
       </div>
     </AppProvider>
