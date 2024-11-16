@@ -12,7 +12,7 @@ export const Navbar: React.FC = () => {
             <div className='navbar-top'>
                 <div className='logo-search-container'>
                     <Link to="/">
-                        <img src={logo_light} alt="UCSD Triton logo" className='logo' />
+                        <img src={logo_light} alt="UCSD Triton logo" className='navbar-logo' />
                     </Link>
                     <div className='search-box'>
                         <input
