@@ -9,8 +9,8 @@ const Filter: React.FC = () => {
     const [max, setMax] = useState<number | string | undefined>();
 
     const applyPriceFilter = () => {
-        const minValue = min === '' || min === undefined ? 0 : parseFloat(String(min));
-        const maxValue = max === '' || max === undefined ? Infinity : parseFloat(String(max));
+        const minValue = isNaN(Number(min)) || min === '' || min === undefined || Number(min) < 0 ? 0 : parseFloat(String(min));
+        const maxValue = isNaN(Number(max)) || max === '' || max === undefined || Number(max) < 0 ? Infinity : parseFloat(String(max));
         setPriceRange(minValue, maxValue);
     };
     const toggleCondition = (condition: Condition) => {
