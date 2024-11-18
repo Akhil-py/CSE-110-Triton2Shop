@@ -11,8 +11,23 @@ describe('Favorites List',()=>{
           <App />
         </MemoryRouter>
     );
-    const title=screen.getByText('Favorites')
-    expect(title).toBeInTheDocument();
+    const title=screen.getAllByTestId('items')
+    expect(title).toHaveLength(3);
     });
+
+    test('deletes an item',()=>{
+      render(
+          <MemoryRouter initialEntries={['/favorites']}>
+            <App />
+          </MemoryRouter>
+      );
+      const title=screen.getAllByTestId('items');
+      expect(title).toHaveLength(3);
+      const exes=screen.getAllByTestId('x');
+      fireEvent.click(exes[1]);
+      const newItems=screen.getAllByTestId('items');
+      expect(newItems).toHaveLength(2)
+      });
+
 });
 
