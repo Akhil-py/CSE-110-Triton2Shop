@@ -1,3 +1,7 @@
+.product-page {
+    padding-top: 50px;
+}
+
 .product-item {
     display: flex;
     flex-direction: column;
@@ -14,14 +18,6 @@
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
-}
-
-body {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
 }
 
 .product-image {
@@ -48,9 +44,12 @@ body {
     color: #555;
     text-align: left;
     background-color: #eaeaea;
-    width: 25vw; /* Increased width for better readability */
-    height: auto; /* Let the height adjust based on content */
-    padding: 15px; /* Reduced padding to use space better */
+    width: 25vw;
+    /* Increased width for better readability */
+    height: auto;
+    /* Let the height adjust based on content */
+    padding: 15px;
+    /* Reduced padding to use space better */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -63,29 +62,45 @@ body {
 
 /* Grouped seller details styling */
 .seller-details {
-    margin-bottom: 15px; /* Adjusted margin to fit more content */
+    margin-bottom: 15px;
+    /* Adjusted margin to fit more content */
     padding-bottom: 10px;
-    border-bottom: 1px solid #ddd; /* Subtle separation */
+    border-bottom: 1px solid #ddd;
+    /* Subtle separation */
 }
 
 /* Styling for individual p tags */
-.seller-info #name, .seller-info #username, .seller-info #contact {
-    font-size: 1.5rem; /* Increased font size for readability */
+.seller-info #name,
+.seller-info #username,
+.seller-info #contact {
+    font-size: 1.5rem;
+    /* Increased font size for readability */
     color: #333;
-    margin-bottom: 8px; /* Reduced margin for tighter layout */
+    margin-bottom: 8px;
+    /* Reduced margin for tighter layout */
 }
 
 /* Styling for price and distance */
-.seller-info #price, .seller-info #distance {
+.seller-info #price,
+.seller-info #distance {
     font-size: 1.4rem;
     color: #444;
-    margin-top: 5px; /* Reduced top margin for tighter spacing */
+    margin-top: 5px;
+    /* Reduced top margin for tighter spacing */
 }
 
 /* Optional: Add a subtle effect when hovering over the seller-info block */
 .seller-info:hover {
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease-in-out;
+}
+
+.product-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .product-description {

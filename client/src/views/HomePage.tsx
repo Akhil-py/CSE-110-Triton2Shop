@@ -1,6 +1,6 @@
 import { Navbar } from "../Components/Navbar/Navbar";
 import './HomePage.css';
-import ListingList from "../Components/Marketplace/MarketplaceList";
+import ListingList from "../Components/Marketplace/MarketplaceListingList";
 import { Category, Condition } from "../types/types";
 import Filter from "../Components/Filter/Filter";
 

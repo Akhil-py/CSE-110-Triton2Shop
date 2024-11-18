@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MarketplaceListingList from '../Components/Marketplace/MarketplaceList';
+import MarketplaceListingList from '../Components/Marketplace/MarketplaceListingList';
 import { AppContext } from '../context/AppContext';
 import { Category, Condition, AppContextType } from '../types/types';
 

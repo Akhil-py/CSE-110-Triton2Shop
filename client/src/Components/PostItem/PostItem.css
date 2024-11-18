@@ -93,3 +93,70 @@
 .dropdown-item:hover {
     background-color: #e0e0e0;
 }
+
+.custom-file-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    background-color: #f9f9f9;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-input:hover {
+    border-color: #0078d7;
+    background-color: #f3f3f3;
+}
+
+.image-preview-gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.image-preview-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.delete-button:hover {
+    opacity: 1;
+}
