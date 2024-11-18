@@ -34,39 +34,41 @@ const ProductPage: React.FC<ProductItemProps> = ({
     };
 
     return (
-        <div className='product-page'>
+        <div>
             <Navbar />
-            <div className='product-item'>
-                <div className='product-name'>
-                    <h1>{title}</h1>
+            <div className='product-page'>
+                <div className='product-item'>
+                    <div className='product-name'>
+                        <h1>{title}</h1>
+                    </div>
+                    <div className='product-body'>
+                        <div className='product-image'>
+                            <img src={GEISELIMAGE} alt={title} />
+                        </div>
+                        <div className='product-info'>
+                            <div className='seller-info'>
+                                <div className='seller-details'>
+                                    <p id='name'>Name: {sellerName}</p>
+                                    <p id='username'>Username: {sellerUsername}</p>
+                                    <p id='contact'>Contact Info: {sellerContact}</p>
+                                </div>
+                                <p id='price'>Price: ${price}</p>
+                                <p id='distance'>Distance: {distance} miles</p>
+                            </div>
+                            <div className='product-buttons'>
+                                <div className='favourite-button'>
+                                    <button onClick={favouriteHandler}>Favourite</button>
+                                </div>
+                                <div className='buy-button'>
+                                    <button onClick={buyHandler}>Buy</button>
+                                </div>
+                            </div>
+                            <div className='product-description'>
+                                <p>{description}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <body>
-                    <div className='product-image'>
-                        <img src={GEISELIMAGE} alt={title} />
-                    </div>
-                    <div className='product-info'>
-                        <div className='seller-info'>
-                            <div className='seller-details'>
-                                <p id='name'>Name: {sellerName}</p>
-                                <p id='username'>Username: {sellerUsername}</p>
-                                <p id='contact'>Contact Info: {sellerContact}</p>
-                            </div>
-                            <p id='price'>Price: ${price}</p>
-                            <p id='distance'>Distance: {distance} miles</p>
-                        </div>
-                        <div className='product-buttons'>
-                            <div className='favourite-button'>
-                                <button onClick={favouriteHandler}>Favourite</button>
-                            </div>
-                            <div className='buy-button'>
-                                <button onClick={buyHandler}>Buy</button>
-                            </div>
-                        </div>
-                        <div className='product-description'>
-                            <p>{description}</p>
-                        </div>
-                    </div>
-                </body>
             </div>
         </div>
     );
