@@ -4,17 +4,19 @@ import passport from 'passport';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { createListingEndpoints } from './listings/listings-endpoints';
+import listingsDB from "./createTable";
+
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Server is running with TypeScript!');
-});
+const cors   = require('cors');
 
 // Middleware for session management
 app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
+app.use(cors());
+app.use(express.json());
 
 // Initialize passport
 app.use(passport.initialize());
@@ -57,3 +59,19 @@ app.get('/auth/google/callback',
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Initialize the database and start the server
+(async () => {
+  const db = await listingsDB();
+ 
+  // Root endpoint to get test if the server is running
+  app.get("/", (req: Request, res: Response) => {
+    res.send({ "data": "Hello, TypeScript Express!" });
+    res.status(200);
+  });
+ 
+  createListingEndpoints(app, db);
+ 
+  //createProductEndpoints(app, db);
+ 
+ })();
