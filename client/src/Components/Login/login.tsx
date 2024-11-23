@@ -38,7 +38,7 @@ const Login: React.FC = () => {
                 className="google-login-button"
                 onClick={handleGoogleLogin}
               >
-                <img src="/google-logo.png" alt="Google Logo" className="google-icon" />
+                
                 Sign in with Google
               </button>
             </div>
