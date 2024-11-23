@@ -4,6 +4,17 @@ import passport from 'passport';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import sequelize from './db';
+import User from './models/user';
+
+sequelize.authenticate()
+  .then(() => console.log('Database connected successfully!'))
+  .catch((err) => console.error('Unable to connect to the database:', err));
+
+sequelize.sync({ alter: true })
+  .then(() => console.log('Database synced successfully!'))
+  .catch((err) => console.error('Error syncing database:', err));
+
 
 dotenv.config();
 const app = express();
@@ -13,7 +24,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Server is running with TypeScript!');
 });
 
-// Middleware for session management
 app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
 
 // Initialize passport
@@ -28,6 +38,7 @@ passport.use(new GoogleStrategy({
   },
   (accessToken, refreshToken, profile, done) => {
     // Handle user profile data here
+    // TODO: Store user data in DB
     done(null, profile);
   }
 ));
@@ -49,7 +60,7 @@ app.get('/auth/google', passport.authenticate('google', {
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    // Successful authentication, redirect to your desired page
+    // Successful authentication redirection to home page
     res.redirect('http://localhost:3000/');
   }
 );
