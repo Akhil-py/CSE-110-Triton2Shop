@@ -20,6 +20,9 @@ const renderFilter = (contextValues = {}) => {
                 maxPrice: Infinity,
                 searchQuery: '',
                 setSearchQuery: jest.fn(),
+                isLoggedIn: false,
+                setIsLoggedIn: jest.fn(),
+
             }}
         >
             <Filter />
