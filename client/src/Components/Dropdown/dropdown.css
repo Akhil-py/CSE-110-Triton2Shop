@@ -1,0 +1,39 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown-toggle {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border-radius: 4px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    background: white;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}

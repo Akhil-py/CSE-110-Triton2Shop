@@ -1,16 +1,5 @@
 import { createContext, useState } from "react";
-import { Category, Condition } from "../types/types";
-interface AppContextType {
-    category: Category;
-    setCategory: (category: Category) => void;
-    minPrice: number;
-    maxPrice: number;
-    setPriceRange: (min: number, max: number) => void;
-    conditions: Condition[];
-    setConditions: (condition: Condition[]) => void;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-}
+import { Category, Condition, AppContextType } from "../types/types";
 
 const initialState: AppContextType = {
     category: Category.All,
