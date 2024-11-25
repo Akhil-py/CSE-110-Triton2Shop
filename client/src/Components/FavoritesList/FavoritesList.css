@@ -1,4 +1,5 @@
-.favorites-container {
+/*Css for the favorites list*/
+.grid-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -6,40 +7,45 @@
     border-radius: 8px;
 }
 
+/*Css for the favorites items*/
 .favorite-item {
     border: 1px solid #ddd;
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 8px;
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 100px 1fr; /* Creates two columns, one for the image and one for the text */
     grid-gap: 15px;
     position: relative;
     background-color: #fff;
+    align-items: start; /* Align items at the start of the grid cell */
 }
 
+/*Css for the favorites items name*/
 .item-name {
-    grid-column: 1 / span 2;
     font-size: 1.5em;
     margin-bottom: 10px;
 }
 
+/*Css for the favorites items images*/
 .item-image {
     width: 100px;
     height: 100px;
     border-radius: 8px;
 }
 
+/*Css for the favorites items distance and buy container*/
 .info-section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+/*Css for the favorites items distances*/
 .distance {
     font-size: 0.9em;
 }
-
+/*Css for the favorites items buy buttons*/
 .buy-button {
     background-color: #FFCD00;
     color: white;
@@ -49,19 +55,70 @@
     cursor: pointer;
 }
 
+/*Css for the favorites items buy interaction*/
 .buy-button:hover {
     background-color: #f50057;
 }
 
+/*Css for the favorites items descriptions*/
 .description {
     font-size: 0.9em;
-    grid-column: 2; 
-    align-self: start;
 }
 
+/*Css for the favorites items x buttons*/
 .remove-button {
     font-size: 1.2em;
     color: #FFCD00;
     cursor: pointer;
-    align-self: start;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+/*Css for the navbar container*/
+.favoritenavbar {
+    background-color: #00629B;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/*Css for the navbar list*/
+.navbar-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+/*Css for the navbar items*/
+.navbar-item {
+    margin: 0 10px;
+}
+
+/*Css for the navbar interaction*/
+.navbar-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/*Css for the navbar hover*/
+.navbar-item a:hover {
+    text-decoration: underline;
+}
+
+/*Css for the component title*/
+.title{
+    text-align: center;
+}
+
+/*Css for the page background*/
+.MainBackground {
+    background-image: url('https://today.ucsd.edu/news_uploads/_social/awruranking2024.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
 }
