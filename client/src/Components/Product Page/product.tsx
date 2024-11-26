@@ -1,7 +1,8 @@
 import React from 'react';
 import './product.css';
 import { Navbar } from '../Navbar/Navbar';
-
+import { useParams } from 'react-router-dom';
+import { mockListings } from '../../types/types';
 const GEISELIMAGE = '/chicken.jpeg'
 
 type ProductItemProps = {
@@ -15,16 +16,7 @@ type ProductItemProps = {
     sellerContact: string;
 };
 
-const ProductPage: React.FC<ProductItemProps> = ({
-    title = 'Title',
-    price = 69,
-    imageUrl = 'beeswax',
-    description = 'amogus',
-    distance = 69,
-    sellerName = 'John Smith',
-    sellerUsername = 'TritonLowBaller',
-    sellerContact = '123-456-7890'
-}) => {
+const ProductPage: React.FC = () => {
     const favouriteHandler = () => {
         console.log('Favourited!');
     };
@@ -32,6 +24,11 @@ const ProductPage: React.FC<ProductItemProps> = ({
     const buyHandler = () => {
         console.log('Bought!');
     };
+    const { id } = useParams<{ id: string }>();
+    const product = mockListings.find((item) => item.id === parseInt(id || '', 10));
+    if (!product) {
+        return <div>Product not found</div>;
+    }
 
     return (
         <div>
@@ -39,21 +36,21 @@ const ProductPage: React.FC<ProductItemProps> = ({
             <div className='product-page'>
                 <div className='product-item'>
                     <div className='product-name'>
-                        <h1>{title}</h1>
+                        <h1>{product.title}</h1>
                     </div>
                     <div className='product-body'>
                         <div className='product-image'>
-                            <img src={GEISELIMAGE} alt={title} />
+                            <img src={product.imageUrl} alt={product.title} />
                         </div>
                         <div className='product-info'>
                             <div className='seller-info'>
                                 <div className='seller-details'>
-                                    <p id='name'>Name: {sellerName}</p>
-                                    <p id='username'>Username: {sellerUsername}</p>
-                                    <p id='contact'>Contact Info: {sellerContact}</p>
+                                    <p id='name'>Name: { }</p>
+                                    <p id='username'>Username: { }</p>
+                                    <p id='contact'>Contact Info: { }</p>
                                 </div>
-                                <p id='price'>Price: ${price}</p>
-                                <p id='distance'>Distance: {distance} miles</p>
+                                <p id='price'>Price: ${product.price}</p>
+                                <p id='distance'>Distance: { } miles</p>
                             </div>
                             <div className='product-buttons'>
                                 <div className='favourite-button'>
@@ -64,7 +61,7 @@ const ProductPage: React.FC<ProductItemProps> = ({
                                 </div>
                             </div>
                             <div className='product-description'>
-                                <p>{description}</p>
+                                <p>{product.condition}</p>
                             </div>
                         </div>
                     </div>
@@ -75,3 +72,13 @@ const ProductPage: React.FC<ProductItemProps> = ({
 };
 
 export default ProductPage;
+/*
+title = 'Title',
+    price = 69,
+    imageUrl = 'beeswax',
+    description = 'amogus',
+    distance = 69,
+    sellerName = 'John Smith',
+    sellerUsername = 'TritonLowBaller',
+    sellerContact = '123-456-7890'
+*/

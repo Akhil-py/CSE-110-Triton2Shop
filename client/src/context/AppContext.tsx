@@ -13,6 +13,8 @@ const initialState: AppContextType = {
     setSearchQuery: () => { },
     MarketplaceListings: [],
     setMarketplaceListings: () => { }
+    isLoggedIn: false,
+    setIsLoggedIn: () => { }
 };
 
 export const AppContext = createContext<AppContextType>(initialState);
@@ -23,6 +25,7 @@ export const AppProvider = (props: any) => {
     const [maxPrice, setMaxPrice] = useState(Infinity);
     const [conditions, setConditions] = useState<Condition[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const setPriceRange = (min: number, max: number) => {
         setMinPrice(min);
         setMaxPrice(max);
@@ -42,6 +45,8 @@ export const AppProvider = (props: any) => {
                 setSearchQuery: setSearchQuery,
                 MarketplaceListings: MarketplaceListings,
                 setMarketplaceListings: setMarketplaceListings
+                isLoggedIn: isLoggedIn,
+                setIsLoggedIn: setIsLoggedIn,
             }}
         >
             {props.children}

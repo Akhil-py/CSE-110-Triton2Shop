@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { MarketplaceListing, Condition, Category } from '../../types/types'
+import { Dropdown } from '../Dropdown/dropdown';
 import './PostItem.css';
 import { AppContext } from "../../context/AppContext";
 import { createListing } from "../../utils/listing-utils";
-
 
 export const PostItem = () => {
     // app context consume
@@ -100,10 +100,12 @@ export const PostItem = () => {
             
         }
     };
+
     const deleteImage = (index: number) => {
         setImages((prev) => prev.filter((_, i) => i !== index));
         setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     };
+
     return (
         <div className='posting-page'>
             <form onSubmit={onSubmit}>
@@ -111,6 +113,7 @@ export const PostItem = () => {
                 <h2>Item for Sale</h2>
                 <input placeholder='Add Title' value={title} onChange={(e) => setTitle(e.target.value)} />
                 <input placeholder='Add Price' value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+
                 <div className="image-upload">
                     <label htmlFor="file-upload" className="custom-file-input">
                         Add Photos (up to 10)
@@ -123,6 +126,7 @@ export const PostItem = () => {
                         onChange={handleImageUpload}
                     />
                 </div>
+
                 <div className="condition-dropdown">
                     <label htmlFor="condition">Condition</label>
                     <button
@@ -199,9 +203,11 @@ export const PostItem = () => {
                     <button type ="submit">Submit</button>
                 </div>
             </div>
+
         </form>
 
             <div className='live-preview'>
+
                 {imagePreviews.length > 0 ? (
                     <div className="image-preview-gallery">
                         {imagePreviews.map((preview, index) => (
@@ -226,4 +232,4 @@ export const PostItem = () => {
             </div>
         </div>
     );
-}
+};

@@ -23,6 +23,8 @@ const renderFilter = (contextValues = {}) => {
                 setSearchQuery: jest.fn(),
                 MarketplaceListings: [],
                 setMarketplaceListings: mockSetMarketplaceListings,
+                isLoggedIn: false,
+                setIsLoggedIn: jest.fn(),
             }}
         >
             <Filter />

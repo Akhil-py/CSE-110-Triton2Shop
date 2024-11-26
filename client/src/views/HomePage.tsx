@@ -6,7 +6,6 @@ import { Category, Condition } from "../types/types";
 import Filter from "../Components/Filter/Filter";
 import { fetchListings } from "../utils/listing-utils";
 import { MarketplaceListing } from "../types/types";
-
 export const HomePage = () => {
     const [listings, setListings] = useState<MarketplaceListing[]>([]);
     useEffect(() => {
@@ -21,7 +20,6 @@ export const HomePage = () => {
 
     loadListings(); 
 }, []);
-
     return (
         <div className='container'>
             <Navbar />

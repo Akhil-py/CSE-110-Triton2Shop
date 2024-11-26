@@ -23,6 +23,8 @@ const renderWithProvider = (category: Category, minPrice: number, maxPrice: numb
                 setSearchQuery: jest.fn(),
                 MarketplaceListings: MarketplaceListings,
                 setMarketplaceListings: jest.fn()
+                isLoggedIn: false,
+                setIsLoggedIn: jest.fn(),
             }}
         >
             <MarketplaceListingList MarketplaceListings={mockListings} />

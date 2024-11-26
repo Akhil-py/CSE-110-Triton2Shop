@@ -3,6 +3,7 @@ import MarketplaceListingItem from './MarketplaceItem';
 import './MarketplaceListingList.css';
 import { AppContext } from '../../context/AppContext';
 import { Category, Condition } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 type MarketplaceListing = {
     id: number;
@@ -19,6 +20,7 @@ type MarketplaceListingListProps = {
 
 const MarketplaceListingList: React.FC<MarketplaceListingListProps> = ({ MarketplaceListings }) => {
     const { category, minPrice, maxPrice, conditions, searchQuery } = useContext(AppContext);
+    const navigate = useNavigate();
 
     const filteredMarketplaceListings = MarketplaceListings.filter((MarketplaceListing) => {
         const matchesCategory = category === Category.All || MarketplaceListing.category === category;
@@ -27,16 +29,24 @@ const MarketplaceListingList: React.FC<MarketplaceListingListProps> = ({ Marketp
         const matchesSearch = MarketplaceListing.title.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && withinPriceRange && matchesCondition && matchesSearch;
     });
+    const handleListingClick = (id: number) => {
+        navigate(`/product/${id}`);
+    };
 
     return (
         <div className="MarketplaceListing-list">
             {filteredMarketplaceListings.map((MarketplaceListing) => (
-                <MarketplaceListingItem
+                <div
                     key={MarketplaceListing.id}
-                    title={MarketplaceListing.title}
-                    price={MarketplaceListing.price}
-                    imageUrl={MarketplaceListing.imageUrl}
-                />
+                    onClick={() => handleListingClick(MarketplaceListing.id)}
+                    style={{ cursor: 'pointer' }}
+                >
+                    <MarketplaceListingItem
+                        title={MarketplaceListing.title}
+                        price={MarketplaceListing.price}
+                        imageUrl={MarketplaceListing.imageUrl}
+                    />
+                </div>
             ))}
         </div>
     );
