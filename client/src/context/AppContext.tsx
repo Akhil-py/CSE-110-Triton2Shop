@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { Category, Condition, AppContextType } from "../types/types";
+import { Category, Condition, AppContextType, MarketplaceListing } from "../types/types";
 
 const initialState: AppContextType = {
     category: Category.All,
@@ -10,7 +10,9 @@ const initialState: AppContextType = {
     maxPrice: Infinity,
     setPriceRange: () => { },
     searchQuery: "",
-    setSearchQuery: () => { }
+    setSearchQuery: () => { },
+    MarketplaceListings: [],
+    setMarketplaceListings: () => { }
 };
 
 export const AppContext = createContext<AppContextType>(initialState);
@@ -25,6 +27,7 @@ export const AppProvider = (props: any) => {
         setMinPrice(min);
         setMaxPrice(max);
     };
+    const [MarketplaceListings, setMarketplaceListings] = useState<MarketplaceListing[]>([]);
     return (
         <AppContext.Provider
             value={{
@@ -37,6 +40,8 @@ export const AppProvider = (props: any) => {
                 setConditions: setConditions,
                 searchQuery: searchQuery,
                 setSearchQuery: setSearchQuery,
+                MarketplaceListings: MarketplaceListings,
+                setMarketplaceListings: setMarketplaceListings
             }}
         >
             {props.children}

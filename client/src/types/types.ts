@@ -19,6 +19,7 @@ export enum Condition {
 
 export type MarketplaceListing = {
     id: number;
+    userId: number;
     title: string;
     price: number;
     imageUrl: string;
@@ -36,4 +37,6 @@ export interface AppContextType {
     setConditions: (condition: Condition[]) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
+    MarketplaceListings: MarketplaceListing[];
+    setMarketplaceListings: React.Dispatch<React.SetStateAction<MarketplaceListing[]>>;
 }

@@ -10,9 +10,11 @@ export const createListing = async (listing: Omit<MarketplaceListing, 'id'>): Pr
     	},
     	body: JSON.stringify(listing),
 	});
-	if (!response.ok) {
-    	throw new Error("Failed to create listing");
-	}
+    if (!response.ok) {
+		// Try to get more details from the response body
+		const errorDetails = await response.text(); // Capture response body text (could be JSON or plain text)
+		throw new Error(`Failed to create listing. Status: ${response.status} ${response.statusText}. ${errorDetails}`);
+	  }
 	return response.json();
 };
 

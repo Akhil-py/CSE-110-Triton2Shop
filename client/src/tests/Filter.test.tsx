@@ -6,6 +6,7 @@ import { Category, Condition } from '../types/types';
 // Mocking the AppContext
 const mockSetPriceRange = jest.fn();
 const mockSetConditions = jest.fn();
+const mockSetMarketplaceListings = jest.fn();
 
 const renderFilter = (contextValues = {}) => {
     return render(
@@ -20,6 +21,8 @@ const renderFilter = (contextValues = {}) => {
                 maxPrice: Infinity,
                 searchQuery: '',
                 setSearchQuery: jest.fn(),
+                MarketplaceListings: [],
+                setMarketplaceListings: mockSetMarketplaceListings,
             }}
         >
             <Filter />

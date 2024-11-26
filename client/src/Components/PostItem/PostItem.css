@@ -160,3 +160,7 @@ input[type="file"] {
 .delete-button:hover {
     opacity: 1;
 }
+
+.hidden-select {
+    display: none;
+  }
