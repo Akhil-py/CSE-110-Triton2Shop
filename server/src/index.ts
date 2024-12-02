@@ -8,6 +8,9 @@ import { createListingEndpoints } from './listings/listings-endpoints';
 import listingsDB from "./createTable";
 import sequelize from './db';
 import User from './models/user';
+import profileRoutes from './profile/profile';
+
+dotenv.config();
 
 sequelize.authenticate()
   .then(() => console.log('Database connected successfully!'))
@@ -17,14 +20,9 @@ sequelize.sync({ alter: true })
   .then(() => console.log('Database synced successfully!'))
   .catch((err) => console.error('Error syncing database:', err));
 
-
-
-
-
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
-const cors   = require('cors');
+const cors = require('cors');
 
 app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
 app.use(cors());
@@ -40,10 +38,22 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     callbackURL: "/auth/google/callback"
   },
-  (accessToken, refreshToken, profile, done) => {
-    // Handle user profile data here
-    // TODO: Store user data in DB
-    done(null, profile);
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      // Find or create the user in the database
+      const [user, created] = await User.findOrCreate({
+        where: { googleId: profile.id },
+        defaults: {
+          name: profile.displayName,
+          email: profile.emails ? profile.emails[0].value : null,
+          profilePicture: profile.photos ? profile.photos[0].value : null
+        }
+      });
+
+      done(null, user);
+    } catch (err) {
+      done(err, false);
+    }
   }
 ));
 
@@ -69,6 +79,9 @@ app.get('/auth/google/callback',
   }
 );
 
+// Use profile routes
+app.use(profileRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
@@ -86,5 +99,4 @@ app.listen(PORT, () => {
   createListingEndpoints(app, db);
  
   //createProductEndpoints(app, db);
- 
- })();
+})();
