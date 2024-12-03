@@ -1,6 +1,6 @@
 import { Database } from "sqlite";
 import { Request, Response } from "express";
-import { getUser, currentUser } from "./profile-utils";
+import { getUser } from "./profile-utils";
 
 export function createProfileEndpoints(app: any, db: Database) {
     // Get user's name, email, and profile picture
@@ -8,7 +8,7 @@ export function createProfileEndpoints(app: any, db: Database) {
         await getUser(req, res, db);
     });
 
-    app.get('/current-user', (req: Request, res: Response) => {
-        currentUser(req, res);
-    });
+    // app.get('/current-user', (req: Request, res: Response) => {
+    //     currentUser(req, res);
+    // });
 }

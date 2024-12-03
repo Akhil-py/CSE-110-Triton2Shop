@@ -36,8 +36,9 @@ export async function getUser(req: Request, res: Response, db: Database) {
     }
 }
 
+/** 
 export function currentUser(req: Request, res: Response) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && req.user) {
         // Assuming 'User' has 'id', 'name', and 'email' fields
         const user = {
           id: req.user.id,
@@ -50,7 +51,7 @@ export function currentUser(req: Request, res: Response) {
         res.status(401).json({ error: 'Unauthorized' });
     }
 }
-
+*/
 
 // // Middleware to check authentication
 // function isAuthenticated(req: Request, res: Response, next: Function) {

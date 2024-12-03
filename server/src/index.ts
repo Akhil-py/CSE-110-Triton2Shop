@@ -29,10 +29,6 @@ const cors = require('cors');
 app.use(session({ secret: 'your_secret_key', 
   resave: false, 
   saveUninitialized: false,
-  cookie: {
-    sameSite: 'none',
-    secure: true 
-  } 
 }));
 
 app.use(cors({
@@ -80,9 +76,10 @@ passport.serializeUser((user: any, done) => {
 passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await User.findByPk(id);
+    console.log("Deserialized User:", user);
     done(null, user);
   } catch (err) {
-    done(err, null);
+    done(err);
   }
 });
 
@@ -95,10 +92,27 @@ app.get('/auth/google', passport.authenticate('google', {
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
+    console.log("Authenticated User:", req.user); // Verify this logs the user object
     // Successful authentication redirection to home page
     res.redirect(`http://localhost:${process.env.CLIENT_PORT}/`);
   }
 );
+
+// TODO: modularize later
+app.get('/current-user', (req: Request, res: Response) => {
+  if (req.isAuthenticated() && req.user) {
+      const user = req.user as any; // Ensure TypeScript understands the `user` shape
+      res.json({ userId: user.id });
+  } else {
+      res.status(401).json({ userId: null }); // Use 401 to indicate unauthenticated status
+  }
+});
+
+// Only for debugging purposes
+app.get('/debug-session', (req, res) => {
+  res.json(req.session);
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
