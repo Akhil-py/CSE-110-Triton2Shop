@@ -26,8 +26,20 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
 
-app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
-app.use(cors());
+app.use(session({ secret: 'your_secret_key', 
+  resave: false, 
+  saveUninitialized: false,
+  cookie: {
+    sameSite: 'none',
+    secure: true 
+  } 
+}));
+
+app.use(cors({
+  origin: `http://localhost:${process.env.CLIENT_PORT}`,
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Initialize passport
@@ -47,24 +59,31 @@ passport.use(new GoogleStrategy({
         where: { googleId: profile.id },
         defaults: {
           name: profile.displayName,
-          email: profile.emails ? profile.emails[0].value : null,
-          profilePicture: profile.photos ? profile.photos[0].value : null
-        }
+          email: profile.emails ? profile.emails[0].value : '',
+          profilePicture: profile.photos ? profile.photos[0].value : ''
+        },
       });
 
-      done(null, user);
+      return done(null, user); // This will call serializeUser
     } catch (err) {
-      done(err, false);
+      return done(err, false);
     }
   }
 ));
 
-passport.serializeUser((user, done) => {
-  done(null, user);
+// Serialize user instance to the session
+passport.serializeUser((user: any, done) => {
+  done(null, user.id);
 });
 
-passport.deserializeUser((user: any, done) => {
-  done(null, user);
+// Deserialize user instance from the session
+passport.deserializeUser(async (id: number, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 // Route for Google OAuth login

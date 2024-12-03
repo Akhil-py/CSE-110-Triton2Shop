@@ -35,3 +35,27 @@ export async function getUser(req: Request, res: Response, db: Database) {
         return res.status(500).send({ error: `Could not fetch user: ${error}` });
     }
 }
+
+export function currentUser(req: Request, res: Response) {
+    if (req.isAuthenticated()) {
+        // Assuming 'User' has 'id', 'name', and 'email' fields
+        const user = {
+          id: req.user.id,
+          name: req.user.name,
+          email: req.user.email,
+          profilePicture: req.user.profilePicture,
+        };
+        res.status(200).json({ user });
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
+}
+
+
+// // Middleware to check authentication
+// function isAuthenticated(req: Request, res: Response, next: Function) {
+//     if (req.isAuthenticated()) {
+//       return next();
+//     }
+//     res.status(401).json({ error: 'Unauthorized' });
+//   }
