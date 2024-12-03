@@ -17,6 +17,12 @@ export enum Condition {
     Poor = "Poor",
 }
 
+export enum Status{
+    Pending= "Pending",
+    Approved="Approved",
+    Rejected="Rejected"
+}
+
 export type MarketplaceListing = {
     id: number;
     title: string;
