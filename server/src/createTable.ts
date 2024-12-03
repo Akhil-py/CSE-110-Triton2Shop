@@ -1,23 +1,23 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { Category, Condition} from "./types"
+import { Category, Condition } from "./types"
 
 const listingsDB = async () => {
- // Open the database connection
- const db = await open({
-   filename: "listings-database.sqlite",
-   driver: sqlite3.Database, 
- });
- // helper function to get the values from types.ts
- const getEnumValues = (enumObj: any): string => {
+  // Open the database connection
+  const db = await open({
+    filename: "listings-database.sqlite",
+    driver: sqlite3.Database,
+  });
+  // helper function to get the values from types.ts
+  const getEnumValues = (enumObj: any): string => {
     return Object.values(enumObj).map(value => `'${value}'`).join(', ');
-};
- // Creates table of the listings
- // userID will reference usernames when database of user authentication is implemented
- // for now they will be NULL
- const categoryValues = getEnumValues(Category);
- const conditionValues = getEnumValues(Condition);
- await db.exec(`
+  };
+  // Creates table of the listings
+  // userID will reference usernames when database of user authentication is implemented
+  // for now they will be NULL
+  const categoryValues = getEnumValues(Category);
+  const conditionValues = getEnumValues(Condition);
+  await db.exec(`
     CREATE TABLE IF NOT EXISTS listings (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userId INTEGER,
@@ -28,7 +28,7 @@ const listingsDB = async () => {
         condition TEXT CHECK (condition IN (${conditionValues})) NOT NULL
     );
  `);
- return db;
+  return db;
 };
 
 export default listingsDB;

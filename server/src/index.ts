@@ -89,14 +89,14 @@ app.listen(PORT, () => {
 // Initialize the database and start the server
 (async () => {
   const db = await listingsDB();
- 
+
   // Root endpoint to get test if the server is running
   app.get("/", (req: Request, res: Response) => {
     res.send({ "data": "Hello, TypeScript Express!" });
     res.status(200);
   });
- 
+
   createListingEndpoints(app, db);
- 
+
   //createProductEndpoints(app, db);
 })();
