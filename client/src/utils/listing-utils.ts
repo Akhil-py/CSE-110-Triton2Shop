@@ -1,6 +1,6 @@
 import { MarketplaceListing } from "../types/types";
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "http://localhost:5000";
 
 export const createListing = async (listing: Omit<MarketplaceListing, 'id'>): Promise<MarketplaceListing> => {
 	const response = await fetch(`${API_BASE_URL}/listing`, {
