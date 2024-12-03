@@ -5,12 +5,12 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { createListingEndpoints } from './listings/listings-endpoints';
-import { createRequestEndpoints } from "./requests/request-endpoints"; // Import the requests endpoints
+import { createRequestEndpoints } from "./requests/request-endpoints";
 import { createFavoriteEndpoints } from "./favorites/favorite-endpoints";
+import { createProfileEndpoints } from './profile/profile-endpoints';
 import listingsDB from "./createTable";
 import sequelize from './db';
 import User from './models/user';
-import profileRoutes from './profile/profile';
 
 dotenv.config();
 
@@ -81,9 +81,6 @@ app.get('/auth/google/callback',
   }
 );
 
-// Use profile routes
-app.use(profileRoutes);
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
@@ -104,6 +101,8 @@ app.listen(PORT, () => {
   createRequestEndpoints(app, db);
 
   createFavoriteEndpoints(app, db);
+
+  createProfileEndpoints(app, db);
  
   //createProductEndpoints(app, db);
 })();
