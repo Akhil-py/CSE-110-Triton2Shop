@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5001/auth/google';
+    window.location.href = 'http://localhost:5000/auth/google';
   };
 
   return (
@@ -37,7 +37,6 @@ const Login: React.FC = () => {
                 className="google-login-button"
                 onClick={handleGoogleLogin}
               >
-
                 Sign in with Google
               </button>
             </div>

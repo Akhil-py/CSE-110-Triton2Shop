@@ -142,3 +142,33 @@ input:not(:placeholder-shown)~.floating-label {
     width: 95%;
     height: 95%;
 }
+
+.google-login-container {
+    text-align: center;
+    margin: 1rem 0;
+}
+  
+.google-login-button {
+    background-color: #4285F4;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+  
+.google-login-button:hover {
+    background-color: #357ae8;
+}
+  
+.google-icon {
+    width: 20px;
+    height: 20px;
+}
+  
