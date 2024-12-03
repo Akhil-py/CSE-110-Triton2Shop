@@ -5,6 +5,8 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { createListingEndpoints } from './listings/listings-endpoints';
+import { createRequestEndpoints } from "./requests/request-endpoints"; // Import the requests endpoints
+import { createFavoriteEndpoints } from "./favorites/favorite-endpoints";
 import listingsDB from "./createTable";
 import sequelize from './db';
 import User from './models/user';
@@ -98,5 +100,10 @@ app.listen(PORT, () => {
 
   createListingEndpoints(app, db);
 
+  // Add endpoints for requests
+  createRequestEndpoints(app, db);
+
+  createFavoriteEndpoints(app, db);
+ 
   //createProductEndpoints(app, db);
 })();
