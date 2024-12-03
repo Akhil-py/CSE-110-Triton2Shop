@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { Condition, Category } from '../../types/types';
 import { Dropdown } from '../Dropdown/dropdown';
 import './PostItem.css';
+import { postListing } from '../../utils/listing-utils';
 
 export const PostItem: React.FC = () => {
+    //TODO: When Users table works after OAuth, make this the prop for signed in user
+    const [curUserId, setCurUserId] = useState<number | string>('');
+    const [title, setTitle] = useState<string>('');
+    const [price, setPrice] = useState<number | string>('');
     const [selectedCondition, setSelectedCondition] = useState<Condition | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+    const [description, setDescription] = useState<string>('');
     const [images, setImages] = useState<File[]>([]);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
+    // Handle image upload
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
@@ -35,43 +42,114 @@ export const PostItem: React.FC = () => {
         setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     };
 
+    // Handle form submission
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        setCurUserId(1); // Placeholder, set current user ID correctly
+
+        if (!title || !price || !selectedCondition || !selectedCategory) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // const formData = new FormData();
+
+        // // Append form data (non-file fields)
+        // formData.append('sellerId', "1"); // Placeholder, replace with dynamic user ID
+        // formData.append('itemName', title);
+        // formData.append('price', price.toString());
+        // formData.append('category', selectedCategory);
+        // formData.append('condition', selectedCondition);
+        // formData.append('description', description || ''); // Optional, can be empty if not provided
+        // formData.append('itemPicture', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s');
+
+        const listingData = {
+            sellerId: 1,  // Placeholder for the dynamic user ID
+            itemName: title,
+            price: price,
+            category: selectedCategory,
+            condition: selectedCondition,
+            description: description || '', // Optional, can be empty
+            itemPicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s' // Static image URL placeholder
+        };
+
+        try {
+            const result = await postListing(listingData);
+            
+            if (result.success) {
+                alert('Item listed successfully!');
+                console.log('Listing successfully posted:', result.data);
+                // Reset form after successful submission
+                setTitle('');
+                setPrice('');
+                setSelectedCondition(null);
+                setSelectedCategory(null);
+                setDescription('');
+                setImages([]);
+                setImagePreviews([]);
+            } else {
+                throw new Error(result.message); // Error handling based on the message in the result
+            }
+        } catch (error) {
+            console.error('Error submitting listing:', error);
+            alert('There was an error submitting your listing.');
+        }
+
+    };
+
     return (
         <div className="posting-page">
-            <div className="information-fields">
-                <h2>Item for Sale</h2>
-                <input placeholder="Add Title" />
-                <input placeholder="Add Price" />
-                <div className="image-upload">
-                    <label htmlFor="file-upload" className="custom-file-input">
-                        Add Photos (up to 10)
-                    </label>
+            <form onSubmit={handleSubmit}>
+                <div className="information-fields">
+                    <h2>Item for Sale</h2>
                     <input
-                        id="file-upload"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={handleImageUpload}
+                        placeholder="Add Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
+                    <input
+                        placeholder="Add Price"
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                    <div className="image-upload">
+                        <label htmlFor="file-upload" className="custom-file-input">
+                            Add Photos (up to 10)
+                        </label>
+                        <input
+                            id="file-upload"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageUpload}
+                        />
+                    </div>
+                    <Dropdown
+                        label="Condition"
+                        items={Object.values(Condition)}
+                        selectedItem={selectedCondition}
+                        onSelect={(condition: Condition) => setSelectedCondition(condition)}
+                    />
+                    <input
+                        placeholder="Add Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <Dropdown
+                        label="Category"
+                        items={Object.values(Category)}
+                        selectedItem={selectedCategory}
+                        onSelect={(category: Category) => setSelectedCategory(category)}
+                    />
+                    <input placeholder="Location" />
+                    <div className="submission-buttons">
+                        <button type="button">Cancel</button>
+                        <button type="submit">Submit</button>
+                    </div>
                 </div>
-                <Dropdown
-                    label="Condition"
-                    items={Object.values(Condition)}
-                    selectedItem={selectedCondition}
-                    onSelect={(condition: Condition) => setSelectedCondition(condition)}
-                />
-                <input placeholder="Add Description" />
-                <Dropdown
-                    label="Category"
-                    items={Object.values(Category)}
-                    selectedItem={selectedCategory}
-                    onSelect={(category: Category) => setSelectedCategory(category)}
-                />
-                <input placeholder="Location" />
-                <div className="submission-buttons">
-                    <button>Cancel</button>
-                    <button>Submit</button>
-                </div>
-            </div>
+            </form>
+
             <div className="live-preview">
                 {imagePreviews.length > 0 ? (
                     <div className="image-preview-gallery">
