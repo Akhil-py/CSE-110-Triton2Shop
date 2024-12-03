@@ -5,8 +5,8 @@ import { Category, Condition, AppContextType } from '../types/types';
 import { MemoryRouter } from 'react-router-dom';
 
 const mockListings = [
-    { id: 1, title: "Sample Item 1", price: 50, imageUrl: "/sample1.jpg", category: Category.Electronics, condition: Condition.Good },
-    { id: 2, title: "Sample Item 2", price: 150, imageUrl: "/sample2.jpg", category: Category.ClothingAccessories, condition: Condition.LikeNew },
+    { id: 1, itemName: "Sample Item 1", price: 50, itemPicture: "/sample1.jpg", category: Category.Electronics, condition: Condition.Good },
+    { id: 2, itemName: "Sample Item 2", price: 150, itemPicture: "/sample2.jpg", category: Category.ClothingAccessories, condition: Condition.LikeNew },
 ];
 
 const renderWithProvider = (category: Category, minPrice: number, maxPrice: number, conditions: Condition[], searchQuery: string) => {

@@ -36,11 +36,11 @@ const ProductPage: React.FC = () => {
             <div className='product-page'>
                 <div className='product-item'>
                     <div className='product-name'>
-                        <h1>{product.title}</h1>
+                        <h1>{product.itemName}</h1>
                     </div>
                     <div className='product-body'>
                         <div className='product-image'>
-                            <img src={product.imageUrl} alt={product.title} />
+                            <img src={product.itemPicture} alt={product.itemName} />
                         </div>
                         <div className='product-info'>
                             <div className='seller-info'>

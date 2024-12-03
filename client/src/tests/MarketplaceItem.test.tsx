@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import MarketplaceItem from '../Components/Marketplace/MarketplaceItem';
 
 it('renders MarketplaceItem with correct title, price, and image', () => {
-    render(<MarketplaceItem title="Sample Item" price={20} imageUrl="/sample.jpg" />);
+    render(<MarketplaceItem itemName="Sample Item" price={20} itemPicture="/sample.jpg" />);
 
     expect(screen.getByText('Sample Item')).toBeInTheDocument();
     expect(screen.getByText('$20')).toBeInTheDocument();
