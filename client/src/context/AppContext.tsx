@@ -23,7 +23,7 @@ export const AppProvider = (props: any) => {
     const [maxPrice, setMaxPrice] = useState(Infinity);
     const [conditions, setConditions] = useState<Condition[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const setPriceRange = (min: number, max: number) => {
         setMinPrice(min);
         setMaxPrice(max);

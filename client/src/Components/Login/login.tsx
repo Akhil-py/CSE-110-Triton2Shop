@@ -29,7 +29,6 @@ const Login: React.FC = () => {
               <label htmlFor="password" className={`floating-label ${password ? 'active' : ''}`}>Password</label>
               <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" " required />
             </div>
-
             <button type="submit" className="sign-in-button">Sign in</button>
 
             <div className="google-login-container">
@@ -38,7 +37,6 @@ const Login: React.FC = () => {
                 className="google-login-button"
                 onClick={handleGoogleLogin}
               >
-                
                 Sign in with Google
               </button>
             </div>

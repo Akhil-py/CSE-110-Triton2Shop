@@ -3,13 +3,13 @@ import { open } from "sqlite";
 import { Category, Condition, Status} from "./types"
 
 const listingsDB = async () => {
- // Open the database connection
- const db = await open({
-   filename: "listings-database.sqlite",
-   driver: sqlite3.Database, 
- });
- // helper function to get the values from types.ts
- const getEnumValues = (enumObj: any): string => {
+  // Open the database connection
+  const db = await open({
+    filename: "listings-database.sqlite",
+    driver: sqlite3.Database,
+  });
+  // helper function to get the values from types.ts
+  const getEnumValues = (enumObj: any): string => {
     return Object.values(enumObj).map(value => `'${value}'`).join(', ');
 };
  // Creates table of the listings
