@@ -55,3 +55,28 @@ export const postListing = async (listingData: any) => {
         data: result,
     };
 };
+
+/**
+ * Fetches the current authenticated user's ID.
+ * @returns {Promise<number | null>} The user ID if authenticated, otherwise null.
+ */
+export const fetchCurrentUserId = async (): Promise<number | null> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/current-user`, {
+            method: "GET",
+            credentials: "include", // Include cookies for session authentication
+        });
+
+        if (!response.ok) {
+            console.warn("Failed to fetch current user ID:", response.statusText);
+            return null;
+        }
+
+        const data = await response.json();
+		console.log("data in fetchCurrentUserId", data);
+        return data.userId;
+    } catch (error) {
+        console.error("Error fetching current user ID:", error);
+        return null;
+    }
+};
