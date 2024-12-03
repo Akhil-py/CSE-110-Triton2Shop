@@ -2,9 +2,13 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../db';
 
 class User extends Model {
-    name: any;
-    email: any;
-    profilePicture: any;
+    public id!: number;
+    googleId!: string;
+    name!: string;
+    email!: string;
+    profilePicture?: string;
+    createdAt!: Date;
+    updatedAt!: Date;
 }
 
 User.init(
@@ -30,6 +34,16 @@ User.init(
     },
     profilePicture: {
       type: DataTypes.TEXT,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   {

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Condition, Category } from '../../types/types';
 import { Dropdown } from '../Dropdown/dropdown';
 import './PostItem.css';
-import { postListing } from '../../utils/listing-utils';
+import { postListing, fetchCurrentUserId } from '../../utils/listing-utils';
 
 export const PostItem: React.FC = () => {
     //TODO: When Users table works after OAuth, make this the prop for signed in user
@@ -14,6 +14,21 @@ export const PostItem: React.FC = () => {
     const [description, setDescription] = useState<string>('');
     const [images, setImages] = useState<File[]>([]);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+    // // Fetch the current user's ID when the component mounts
+    // useEffect(() => {
+    //     const getUserId = async () => {
+    //         const id = await fetchCurrentUserId();
+    //         if (id !== null) {
+    //             setCurUserId(id);
+    //         } else {
+    //             console.log('User is not authenticated.');
+    //             // redirect to login or show a message
+    //         }
+    //     };
+    //     getUserId();
+    // }, []);
+
 
     // Handle image upload
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +60,15 @@ export const PostItem: React.FC = () => {
     // Handle form submission
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        setCurUserId(1); // Placeholder, set current user ID correctly
+        //setCurUserId(1); // Placeholder, set current user ID correctly
+        const id = await fetchCurrentUserId();
+        console.log('Current user ID:', id);
+        if (id !== null) {
+            setCurUserId(id);
+        } else {
+            console.log('User is not authenticated.');
+            // redirect to login or show a message
+        }
 
         if (!title || !price || !selectedCondition || !selectedCategory) {
             alert('Please fill in all required fields.');
@@ -64,7 +87,7 @@ export const PostItem: React.FC = () => {
         // formData.append('itemPicture', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s');
 
         const listingData = {
-            sellerId: 1,  // Placeholder for the dynamic user ID
+            sellerId: curUserId,  // Placeholder for the dynamic user ID
             itemName: title,
             price: price,
             category: selectedCategory,
