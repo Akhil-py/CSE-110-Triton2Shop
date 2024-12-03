@@ -11,7 +11,7 @@ import listingsDB from "./createTable";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
-const cors   = require('cors');
+const cors = require('cors');
 
 // Middleware for session management
 app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
@@ -24,10 +24,10 @@ app.use(passport.session());
 
 // Passport configuration for Google OAuth
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: "/auth/google/callback"
-  },
+  clientID: process.env.GOOGLE_CLIENT_ID!,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+  callbackURL: "/auth/google/callback"
+},
   (accessToken, refreshToken, profile, done) => {
     // Handle user profile data here
     done(null, profile);
@@ -63,15 +63,15 @@ app.listen(PORT, () => {
 // Initialize the database and start the server
 (async () => {
   const db = await listingsDB();
- 
+
   // Root endpoint to get test if the server is running
   app.get("/", (req: Request, res: Response) => {
     res.send({ "data": "Hello, TypeScript Express!" });
     res.status(200);
   });
- 
+
   createListingEndpoints(app, db);
- 
+
   //createProductEndpoints(app, db);
- 
- })();
+
+})();
