@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './product.css';
 import { Navbar } from '../Navbar/Navbar';
 import { useParams } from 'react-router-dom';
-import { mockListings } from '../../types/types';
+import { MarketplaceListing } from '../../types/types';
+import { fetchListings } from "../../utils/listing-utils";
 const GEISELIMAGE = '/chicken.jpeg'
 
 type ProductItemProps = {
@@ -25,7 +26,20 @@ const ProductPage: React.FC = () => {
         console.log('Bought!');
     };
     const { id } = useParams<{ id: string }>();
-    const product = mockListings.find((item) => item.id === parseInt(id || '', 10));
+    const [listings, setListings] = useState<MarketplaceListing[]>([]);
+    useEffect(() => {
+        const loadListings = async () => {
+            try {
+                const fetchedListings = await fetchListings();
+                setListings(fetchedListings);
+            } catch (error) {
+                console.error("Failed to load listings:", error);
+            }
+        };
+
+    loadListings(); 
+}, []);
+    const product = listings.find((item) => item.id === parseInt(id || '', 10));
     if (!product) {
         return <div>Product not found</div>;
     }

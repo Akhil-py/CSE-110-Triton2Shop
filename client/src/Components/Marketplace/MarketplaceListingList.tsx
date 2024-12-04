@@ -35,6 +35,7 @@ const MarketplaceListingList: React.FC<MarketplaceListingListProps> = ({ Marketp
             {filteredMarketplaceListings.map((MarketplaceListing) => (
                 <MarketplaceListingItem
                     key={MarketplaceListing.id}
+                    id={MarketplaceListing.id}
                     itemName={MarketplaceListing.itemName}
                     price={MarketplaceListing.price}
                     itemPicture={MarketplaceListing.itemPicture}
