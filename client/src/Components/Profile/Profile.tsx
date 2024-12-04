@@ -1,26 +1,48 @@
-// client/src/Components/Profile/Profile.tsx
 import React, { useEffect, useState } from 'react';
+import { fetchCurrentUserId, fetchUserProfile } from '../../utils/listing-utils';
 
 interface Profile {
-  profilePicture?: string;
   name: string;
   email: string;
+  profilePicture?: string;
 }
 
 const Profile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/profile', {
-      credentials: 'include'
-    })
-      .then(response => response.json())
-      .then(data => setProfile(data))
-      .catch(error => console.error('Error fetching profile:', error));
+    const loadProfile = async () => {
+      try {
+        // Fetch the current user's ID
+        const userId = await fetchCurrentUserId();
+
+        if (!userId) {
+          console.error('User is not authenticated.');
+          setLoading(false);
+          return;
+        }
+
+        console.log('User ID:', userId);
+
+        const user = fetchUserProfile(userId);
+        setProfile(await user);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
   }, []);
 
-  if (!profile) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!profile) {
+    return <div>User not found or not authenticated.</div>;
   }
 
   return (

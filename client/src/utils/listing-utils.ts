@@ -1,3 +1,4 @@
+import Profile from "../Components/Profile/Profile";
 import { MarketplaceListing, Category, Condition } from "../types/types";
 
 const API_BASE_URL = "http://localhost:5000";
@@ -80,3 +81,22 @@ export const fetchCurrentUserId = async (): Promise<number | null> => {
         return null;
     }
 };
+
+export const fetchUserProfile = async (userId: number): Promise<Profile | null> => {
+	try {
+		const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			console.error('Failed to fetch profile:', response.statusText);
+			return null;
+		}
+
+		const data = await response.json();
+		return data.user;
+	} catch (error) {
+		console.error('Error fetching profile:', error);
+		return null;
+	}
+}

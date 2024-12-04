@@ -8,6 +8,8 @@ import { PostItem } from './Components/PostItem/PostItem';
 import RequestTracker from './Components/Request Tracker/requestTracker';
 import FavoritesList from "./Components/FavoritesList/FavoritesList";
 import ProductPage from "./Components/Product Page/product";
+import Profile
+ from "./Components/Profile/Profile";
 function App() {
   return (
     <AppProvider>
@@ -20,7 +22,7 @@ function App() {
 
           <Route path="/rq-tracker" element={<RequestTracker />} />
           <Route path="/favorites" element={<FavoritesList />} />
-
+          <Route path="/profile" element={<Profile />} />
           <Route path="/product/:id" element={<ProductPage />} />
 
         </Routes>
