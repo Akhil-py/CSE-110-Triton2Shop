@@ -128,9 +128,9 @@ app.listen(PORT, () => {
     res.status(200);
   });
 
-  createListingEndpoints(app, db);
-
   // Add endpoints for requests
+  createListingEndpoints(app, db);
+  
   createRequestEndpoints(app, db);
 
   createFavoriteEndpoints(app, db);

@@ -20,7 +20,7 @@ import { Request, Response } from 'express';
 
 // }
 
-import { createItemServer, getItems } from "./listings-utils";
+import { createItemServer, getItems, getItem } from "./listings-utils";
 const app = express();
 
 // Enable CORS and JSON parsing
@@ -40,6 +40,12 @@ export function createListingEndpoints(app: any, db: Database) {
 
         getItems(req, res, db);
 
+    });
+
+    app.get("/listing/:listingId", (req: Request, res: Response) => {
+        console.log("GET /listing/:listingId endpoint hit");
+        console.log("Incoming request data:", req.params);
+        getItem(req, res, db);
     });
 
 }

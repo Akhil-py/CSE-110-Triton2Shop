@@ -165,6 +165,46 @@ export async function getItems(req: Request, res: Response, db: Database) {
 }
 
 
- 
+export async function getItem(req: Request, res: Response, db: Database) {
+    try {
+        const itemId = parseInt(req.params.listingId, 10);
+        if (isNaN(itemId)) {
+            return res.status(400).json({ error: "Invalid item ID." });
+        }
 
+        const query = `
+            SELECT 
+                Items.id,
+                Items.itemName,
+                Items.price,
+                Items.itemPicture,
+                Items.category,
+                Items.condition,
+                Items.description,
+                Items.datePosted,
+                Items.quantity,
+                Users.name as sellerName,
+                Users.email as sellerEmail
+            FROM 
+                Items
+            INNER JOIN 
+                Users
+            ON 
+                Items.sellerId = Users.id
+            WHERE 
+                Items.id = ?;
+        `;
+
+        const item = await db.get(query, [itemId]);
+
+        if (!item) {
+            return res.status(404).json({ error: "Item not found." });
+        }
+
+        return res.status(200).json({ item });
+    } catch (error) {
+        console.error("Error fetching item with seller details:", error);
+        return res.status(500).json({ error: "Internal server error." }); 
+    }
+}
  
