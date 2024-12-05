@@ -40,8 +40,10 @@ export const AppProvider = (props: any) => {
 
                 if (response.ok) {
                     setIsLoggedIn(true);
+                    console.log("User is logged in");
                 } else {
                     setIsLoggedIn(false);
+                    console.log("User is not logged in");
                 }
             } catch (error) {
                 console.error("Error checking authentication status:", error);

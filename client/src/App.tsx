@@ -8,6 +8,8 @@ import { PostItem } from './Components/PostItem/PostItem';
 import RequestTracker from './Components/Request Tracker/requestTracker';
 import FavoritesList from "./Components/FavoritesList/FavoritesList";
 import ProductPage from "./Components/Product Page/product";
+import ProtectedRoute from './Components/Login/ProtectedRoute'; 
+
 function App() {
   return (
     <AppProvider>
