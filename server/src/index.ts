@@ -101,10 +101,10 @@ app.get('/auth/google/callback',
 // TODO: modularize later
 app.get('/current-user', (req: Request, res: Response) => {
   if (req.isAuthenticated() && req.user) {
-      const user = req.user as any; // Ensure TypeScript understands the `user` shape
+      const user = req.user as any; 
       res.json({ userId: user.id });
   } else {
-      res.status(401).json({ userId: null }); // Use 401 to indicate unauthenticated status
+      res.status(401).json({ userId: null }); // 401 if not logged in
   }
 });
 
