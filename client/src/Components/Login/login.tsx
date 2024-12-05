@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './login.css';
 
-/* Consts */
-const LOGO = '/ucsd-logo.png'
-const GEISELIMAGE = '/chicken.jpeg'
+/* Constants */
+const LOGO = '/ucsd-logo.png';
+const GEISELIMAGE = '/chicken.jpeg';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google';
+  };
 
   return (
     <div className='login-page'>
@@ -25,8 +29,17 @@ const Login: React.FC = () => {
               <label htmlFor="password" className={`floating-label ${password ? 'active' : ''}`}>Password</label>
               <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" " required />
             </div>
-
             <button type="submit" className="sign-in-button">Sign in</button>
+
+            <div className="google-login-container">
+              <button
+                type="button"
+                className="google-login-button"
+                onClick={handleGoogleLogin}
+              >
+                Sign in with Google
+              </button>
+            </div>
 
             <div className="form-footer">
               <label className="remember-me">

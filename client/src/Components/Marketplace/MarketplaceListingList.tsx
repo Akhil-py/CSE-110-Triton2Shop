@@ -4,11 +4,12 @@ import './MarketplaceListingList.css';
 import { AppContext } from '../../context/AppContext';
 import { Category, Condition } from '../../types/types';
 
+//sellerId, itemName, price, itemPicture, category, condition, description
 type MarketplaceListing = {
     id: number;
-    title: string;
+    itemName: string;
     price: number;
-    imageUrl: string;
+    itemPicture: string;
     category: Category;
     condition: Condition;
 };
@@ -19,13 +20,14 @@ type MarketplaceListingListProps = {
 
 const MarketplaceListingList: React.FC<MarketplaceListingListProps> = ({ MarketplaceListings }) => {
     const { category, minPrice, maxPrice, conditions, searchQuery } = useContext(AppContext);
-
     const filteredMarketplaceListings = MarketplaceListings.filter((MarketplaceListing) => {
+        console.log("curr category is " + MarketplaceListing.category);
         const matchesCategory = category === Category.All || MarketplaceListing.category === category;
         const withinPriceRange = MarketplaceListing.price >= minPrice && MarketplaceListing.price <= maxPrice;
         const matchesCondition = conditions.length === 0 || conditions.includes(MarketplaceListing.condition);
-        const matchesSearch = MarketplaceListing.title.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && withinPriceRange && matchesCondition && matchesSearch;
+        console.log("curr condition is " + MarketplaceListing.condition);
+        //const matchesSearch = MarketplaceListing.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && withinPriceRange && matchesCondition; //&& matchesSearch;
     });
 
     return (
@@ -33,9 +35,10 @@ const MarketplaceListingList: React.FC<MarketplaceListingListProps> = ({ Marketp
             {filteredMarketplaceListings.map((MarketplaceListing) => (
                 <MarketplaceListingItem
                     key={MarketplaceListing.id}
-                    title={MarketplaceListing.title}
+                    id={MarketplaceListing.id}
+                    itemName={MarketplaceListing.itemName}
                     price={MarketplaceListing.price}
-                    imageUrl={MarketplaceListing.imageUrl}
+                    itemPicture={MarketplaceListing.itemPicture}
                 />
             ))}
         </div>

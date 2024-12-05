@@ -21,7 +21,11 @@ function App() {
           <Route path="/postitem" element={<PostItem />} />
 
           <Route path="/rq-tracker" element={<RequestTracker />} />
-          <Route path="/favorites" element={<FavoritesList/>} />
+
+     
+          <Route path="/favorites" element={<FavoritesList />} />
+
+          <Route path="/product/:id" element={<ProductPage />} />
 
           <Route path="/product" element={<ProductPage title={"Rotisserie Chicken"} price={12} imageUrl={""} description={"beeswax"} distance={12} sellerName={"triton"} sellerUsername={"tritonlowballer"} sellerContact={"123-456-7890"} />} />
           <Route path="/profile" element={<ProfilePage title={"Profile Page"} price={12} imageUrl={""} description={"beeswax"} distance={12} sellerName={"triton"} sellerUsername={"tritonlowballer"} sellerContact={"123-456-7890"} />} />

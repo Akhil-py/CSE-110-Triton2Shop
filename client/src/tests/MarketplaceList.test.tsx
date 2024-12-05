@@ -2,29 +2,34 @@ import { render, screen } from '@testing-library/react';
 import MarketplaceListingList from '../Components/Marketplace/MarketplaceListingList';
 import { AppContext } from '../context/AppContext';
 import { Category, Condition, AppContextType } from '../types/types';
+import { MemoryRouter } from 'react-router-dom';
 
 const mockListings = [
-    { id: 1, title: "Sample Item 1", price: 50, imageUrl: "/sample1.jpg", category: Category.Electronics, condition: Condition.Good },
-    { id: 2, title: "Sample Item 2", price: 150, imageUrl: "/sample2.jpg", category: Category.ClothingAccessories, condition: Condition.LikeNew },
+    { id: 1, itemName: "Sample Item 1", price: 50, itemPicture: "/sample1.jpg", category: Category.Electronics, condition: Condition.Good },
+    { id: 2, itemName: "Sample Item 2", price: 150, itemPicture: "/sample2.jpg", category: Category.ClothingAccessories, condition: Condition.LikeNew },
 ];
 
 const renderWithProvider = (category: Category, minPrice: number, maxPrice: number, conditions: Condition[], searchQuery: string) => {
     return render(
-        <AppContext.Provider
-            value={{
-                category: category,
-                setCategory: jest.fn(),
-                minPrice: minPrice,
-                maxPrice: maxPrice,
-                setPriceRange: jest.fn(),
-                conditions: conditions,
-                setConditions: jest.fn(),
-                searchQuery: searchQuery,
-                setSearchQuery: jest.fn(),
-            }}
-        >
-            <MarketplaceListingList MarketplaceListings={mockListings} />
-        </AppContext.Provider>
+        <MemoryRouter>
+            <AppContext.Provider
+                value={{
+                    category: category,
+                    setCategory: jest.fn(),
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
+                    setPriceRange: jest.fn(),
+                    conditions: conditions,
+                    setConditions: jest.fn(),
+                    searchQuery: searchQuery,
+                    setSearchQuery: jest.fn(),
+                    isLoggedIn: false,
+                    setIsLoggedIn: jest.fn(),
+                }}
+            >
+                <MarketplaceListingList MarketplaceListings={mockListings} />
+            </AppContext.Provider>
+        </MemoryRouter>
     );
 };
 

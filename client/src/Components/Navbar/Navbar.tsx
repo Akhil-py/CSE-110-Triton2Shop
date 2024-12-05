@@ -6,7 +6,22 @@ import { AppContext } from '../../context/AppContext'
 import { Link } from "react-router-dom";
 import { Category } from '../../types/types'
 export const Navbar: React.FC = () => {
-    const { category, setCategory, searchQuery, setSearchQuery } = useContext(AppContext)
+    const { category, setCategory, searchQuery, setSearchQuery, isLoggedIn, setIsLoggedIn } = useContext(AppContext)
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+    };
+
+    const handleSignOut = () => {
+        setIsLoggedIn(false);
+        // Additional sign-out logic (e.g., clearing tokens) can go here.
+    };
+    const dropdownItems = [
+        { label: 'Post Item', action: () => (window.location.href = '/postitem') },
+        { label: 'Request Tracker', action: () => (window.location.href = '/rq-tracker') },
+        { label: 'Sign Out', action: handleSignOut },
+    ];
     return (
         <div className='navbar'>
             <div className='navbar-top'>
@@ -25,7 +40,25 @@ export const Navbar: React.FC = () => {
                     </div>
                 </div>
                 <div className='nav-items'>
-                    <Link to="/login">Log in</Link>
+                    {!isLoggedIn ? (
+                        <Link to="/login">Log in</Link>
+                    ) : (
+                        <div className="profile-container">
+                            <img
+                                src="https://images.pexels.com/photos/7486538/pexels-photo-7486538.jpeg/"
+                                alt="User Avatar"
+                                className="profile-avatar"
+                                onClick={toggleDropdown}
+                            />
+                            {dropdownVisible && (
+                                <div className="dropdown-menu">
+                                    <Link to="/postitem">Post Item</Link>
+                                    <Link to="/rq-tracker">Request Tracker</Link>
+                                    <button onClick={handleSignOut}>Sign Out</button>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className='navbar-categories'>

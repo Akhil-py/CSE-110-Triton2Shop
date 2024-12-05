@@ -17,13 +17,19 @@ export enum Condition {
     Poor = "Poor",
 }
 
+export enum Status{
+    Pending= "Pending",
+    Approved="Approved",
+    Rejected="Rejected"
+}
+
 export type MarketplaceListing = {
     id: number;
+    title: string;
     price: number;
+    imageUrl: string;
     category: Category;
     condition: Condition;
-    itemName: string;
-    itemPicture: string;
 };
 
 export interface AppContextType {
@@ -36,14 +42,4 @@ export interface AppContextType {
     setConditions: (condition: Condition[]) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    isLoggedIn: boolean;
-    setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
-
-export const mockListings = [
-    { id: 1, itemName: 'Glass Vase', price: 20, itemPicture: "https://images.pexels.com/photos/7486538/pexels-photo-7486538.jpeg/", category: Category.HomeGarden, condition: Condition.LikeNew },
-    { id: 2, itemName: 'Mercedes-Benz', price: 10998, itemPicture: 'https://images.pexels.com/photos/136872/pexels-photo-136872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', category: Category.Vehicles, condition: Condition.LikeNew },
-    { id: 3, itemName: 'Ipad Air 2015 5th Generation', price: 250, itemPicture: 'https://images.pexels.com/photos/1334598/pexels-photo-1334598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', category: Category.Electronics, condition: Condition.LikeNew },
-
-    // Add more items as needed
-];

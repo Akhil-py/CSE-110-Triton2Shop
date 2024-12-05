@@ -1,20 +1,23 @@
 import React from 'react';
 import './MarketplaceItem.css'
 type MarketplaceItemProps = {
-    title: string;
+    itemName: string;
     price: number;
-    imageUrl: string;
+    itemPicture: string;
+    id : number;
 };
 
-const MarketplaceItem: React.FC<MarketplaceItemProps> = ({ title, price, imageUrl }) => {
+const MarketplaceItem: React.FC<MarketplaceItemProps> = ({ id, itemName, price, itemPicture }) => {
     return (
-        <div className="Marketplace-item">
-            <img src={imageUrl} alt={title} className="Marketplace-image" />
-            <div className='Marketplace-description'>
-                <h3>{title}</h3>
-                <p>${price}</p>
+        <a href={`/product/${id}`}>
+            <div className="Marketplace-item">
+                <img src={itemPicture} alt={itemName} className="Marketplace-image" />
+                <div className='Marketplace-description'>
+                    <h3>{itemName}</h3>
+                    <p>${price}</p>
+                </div>
             </div>
-        </div>
+        </a>
     );
 };
 

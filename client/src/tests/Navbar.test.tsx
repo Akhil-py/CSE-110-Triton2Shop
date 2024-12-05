@@ -1,15 +1,21 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Navbar } from '../Components/Navbar/Navbar';
 import { AppProvider } from '../context/AppContext'; // Import your context provider
-import { BrowserRouter } from 'react-router-dom';
-const renderNavbar = () => {
-    return render(
-        <AppProvider>
-            <BrowserRouter>
-                <Navbar />
-            </BrowserRouter>
-        </AppProvider>
-    );
+import { MemoryRouter, Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+
+const renderNavbar = (initialRoute = '/') => {
+    const history = createMemoryHistory({ initialEntries: [initialRoute] });
+    return {
+        ...render(
+            <AppProvider>
+                <Router location={history.location} navigator={history}>
+                    <Navbar />
+                </Router>
+            </AppProvider>
+        ),
+        history,
+    };
 };
 describe('Navigation Bar', () => {
     it('Renders correctly', () => {
@@ -50,15 +56,15 @@ describe('Navigation Bar', () => {
         expect(searchInput.value).toBe('test query');
     });
     it('Navigates to the home route when clicking the logo', () => {
-        renderNavbar();
+        const { getByAltText, history } = renderNavbar();
         const logo = screen.getByAltText('UCSD Triton logo');
         fireEvent.click(logo);
-        expect(window.location.pathname).toBe('/');
+        expect(history.location.pathname).toBe('/');
     });
     it('Navigates to the login route when clicking the log in link', () => {
-        renderNavbar();
+        const { getByText, history } = renderNavbar();
         const logInLink = screen.getByText('Log in');
         fireEvent.click(logInLink);
-        expect(window.location.pathname).toBe('/login');
+        expect(history.location.pathname).toBe('/login');
     });
 });
