@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './login.css';
+import { AppContext } from '../../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 /* Constants */
 const LOGO = '/ucsd-logo.png';
 const GEISELIMAGE = '/chicken.jpeg';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { setIsLoggedIn } = useContext(AppContext);
+  const navigate = useNavigate();
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
 
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:5000/auth/google';
@@ -19,39 +23,17 @@ const Login: React.FC = () => {
         <div className="login-form-container">
           <img src={LOGO} alt="Triton2Shop Logo" className="logo" />
           <h2 className="login-title">LOGIN</h2>
-          <form className="login-form">
-            <div className="email-input">
-              <label htmlFor="email" className={`floating-label ${email ? 'active' : ''}`}>Username or Email</label>
-              <input type="text" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder=" " required />
-            </div>
 
-            <div className="password-input">
-              <label htmlFor="password" className={`floating-label ${password ? 'active' : ''}`}>Password</label>
-              <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" " required />
-            </div>
-            <button type="submit" className="sign-in-button">Sign in</button>
-
-            <div className="google-login-container">
-              <button
-                type="button"
-                className="google-login-button"
-                onClick={handleGoogleLogin}
-              >
-                Sign in with Google
-              </button>
-            </div>
-
-            <div className="form-footer">
-              <label className="remember-me">
-                <input type="checkbox" /> Remember me
-              </label>
-              <a href="/forgot-password" className="forgot-password">Forgot password</a>
-            </div>
-
-            <p className="new-user">
-              New User? <a href="/signup">Create an account instead</a>
-            </p>
-          </form>
+          <div className="google-login-container">
+            <button
+              type="button"
+              className="google-login-button"
+              onClick={handleGoogleLogin}
+            >
+              <img src="/google-icon.png" alt="Google Icon" className="google-icon" />
+              Sign in with Google
+            </button>
+          </div>
         </div>
         <div className="image-container">
           <img src={GEISELIMAGE} alt="STUDENTS EXCHANGING GOODS IN FRONT OF GEISEL" className='geisel-image' />

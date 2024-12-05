@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Category, Condition, AppContextType } from "../types/types";
 
 const initialState: AppContextType = {
@@ -28,6 +28,30 @@ export const AppProvider = (props: any) => {
         setMinPrice(min);
         setMaxPrice(max);
     };
+
+    // Check if the user is logged in
+    useEffect(() => {
+        const checkAuthStatus = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/current-user", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                }
+            } catch (error) {
+                console.error("Error checking authentication status:", error);
+                setIsLoggedIn(false);
+            }
+        };
+
+        checkAuthStatus();
+    }, []);
+
     return (
         <AppContext.Provider
             value={{
