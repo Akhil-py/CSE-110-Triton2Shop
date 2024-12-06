@@ -252,6 +252,45 @@ export const createRequest = async (itemId: number, buyerId: number): Promise<{ 
     return response.json();  // Returning the response in the same shape as what the backend sends
 };
 
+// Fetch a user's favorites
+export const getUserFavorites = async (userId: number | null): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/favorites/${userId}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch favorites");
+    }
+    return response.json();
+};
+
+// Add a new favorite
+export const addFavorite = async (userId: number, itemId: number): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/favorites`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, itemId }),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to add favorite");
+    }
+    return response.json();
+};
+
+// Delete a favorite
+export const deleteFavorite = async (userId: number, itemId: number): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/favorites`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, itemId }),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to delete favorite");
+    }
+    return response.json();
+};
+
 
 
 

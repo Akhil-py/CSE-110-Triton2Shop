@@ -18,8 +18,5 @@ export function createFavoriteEndpoints(app: any, db: Database) {
     app.delete("/favorites", async (req: Request, res: Response) => {
         deleteFavorite(req, res, db);
     });
-
-    // TODO: Consider edge case where item is no longer active
-        //SOlution: as soon as an item becomes inactive, remove all occurences of that item from the favorites table
     
 }

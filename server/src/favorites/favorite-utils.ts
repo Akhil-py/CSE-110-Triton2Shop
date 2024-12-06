@@ -20,8 +20,7 @@ export async function getUserFavorites(req: Request, res: Response, db: Database
                 Items.condition,
                 Items.category,
                 Items.datePosted,
-                Items.quantity,
-                Items.isActive
+                Items.quantity
             FROM 
                 Favorites
             INNER JOIN 
