@@ -1,3 +1,16 @@
+/* THIS FILE IS DEPRECATED AND WILL BE REMOVED IN THE FUTURE */
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState } from 'react';
 import './signup.css'; // Importing the CSS file
 

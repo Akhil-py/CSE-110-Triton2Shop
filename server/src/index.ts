@@ -83,6 +83,9 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
+
+/* Endpoints for Google OAuth */
+
 // Route for Google OAuth login
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email']
@@ -90,7 +93,7 @@ app.get('/auth/google', passport.authenticate('google', {
 
 // Google OAuth callback route
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: `http://localhost:${process.env.CLIENT_PORT}/login` }),
   (req, res) => {
     console.log("Authenticated User:", req.user); // Verify this logs the user object
     // Successful authentication redirection to home page
@@ -98,19 +101,30 @@ app.get('/auth/google/callback',
   }
 );
 
-// TODO: modularize later
-app.get('/current-user', (req: Request, res: Response) => {
-  if (req.isAuthenticated() && req.user) {
-      const user = req.user as any; // Ensure TypeScript understands the `user` shape
-      res.json({ userId: user.id });
-  } else {
-      res.status(401).json({ userId: null }); // Use 401 to indicate unauthenticated status
-  }
+// Logout Route
+app.post('/logout', (req: Request, res: Response) => {
+  req.logout(err => {
+      if (err) {
+          return res.status(500).send({ error: 'Failed to log out.' });
+      }
+      req.session.destroy((err) => {
+          if (err) {
+              return res.status(500).send({ error: 'Failed to destroy session.' });
+          }
+          res.clearCookie('connect.sid'); // change
+          return res.status(200).send({ message: 'Logged out successfully.' });
+      });
+  });
 });
 
-// Only for debugging purposes
-app.get('/debug-session', (req, res) => {
-  res.json(req.session);
+// Route to check if the user is logged in and returns the user id
+app.get('/current-user', (req: Request, res: Response) => {
+  if (req.isAuthenticated() && req.user) {
+      const user = req.user as any; 
+      res.json({ userId: user.id });
+  } else {
+      res.status(401).json({ userId: null }); // 401 if not logged in
+  }
 });
 
 
