@@ -105,3 +105,138 @@ export const fetchItemWithSeller = async (id: number): Promise<MarketplaceListin
         return null;
     }
 };
+
+// Fetch requests sent by the current user
+export const fetchRequestsSent = async (userId: number): Promise<any> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/requests/sent/${userId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch requests sent by the user');
+        }
+
+        const requestsSentData = await response.json();
+        return {
+            success: true,
+            message: 'Requests sent by the user fetched successfully',
+            data: requestsSentData,
+        };
+    } catch (error) {
+        console.error("Error fetching requests sent by the user:", error);
+        return {
+            success: false,
+            message: error || 'Failed to fetch requests sent by the user',
+            data: null,
+        };
+    }
+};
+
+// Fetch requests for items the current user is selling
+export const fetchRequestsReceived = async (userId: number): Promise<any> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/requests/received/${userId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch requests for items the user is selling');
+        }
+
+        const requestsReceivedData = await response.json();
+        return {
+            success: true,
+            message: 'Requests for items the user is selling fetched successfully',
+            data: requestsReceivedData,
+        };
+    } catch (error) {
+        console.error("Error fetching requests for items the user is selling:", error);
+        return {
+            success: false,
+            message: error || 'Failed to fetch requests for items the user is selling',
+            data: null,
+        };
+    }
+};
+
+// Delete a request by its ID
+export const deleteRequest = async (requestId: number): Promise<any> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/requests/delete/${requestId}`, {
+            method: 'DELETE',
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            return {
+                success: false,
+                message: result.message || 'Failed to delete request',
+            };
+        }
+
+        return {
+            success: true,
+            message: 'Request deleted successfully',
+        };
+    } catch (error) {
+        console.error("Error deleting request:", error);
+        return {
+            success: false,
+            message: error || 'Failed to delete request',
+        };
+    }
+};
+
+export const createTodo = async (sellerId: number, purchaserId: number, itemName: string): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/todo`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sellerId, purchaserId, itemName }),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to create TODO");
+    }
+    return response.json();
+};
+
+export const fetchTodosByUser = async (userId: number): Promise<any[]> => {
+    const response = await fetch(`${API_BASE_URL}/todos/${userId}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch TODOs");
+    }
+    return response.json();
+};
+
+export const deleteTodo = async (todoId: number): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/todo/${todoId}`, {
+        method: "DELETE",
+    });
+    if (!response.ok) {
+        throw new Error("Failed to delete TODO");
+    }
+};
+
+export const deleteItem = async (itemId: number): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/items/${itemId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (!response.ok) {
+        throw new Error("Failed to delete item");
+    }
+    return response.json();
+};
+
+export const fetchUser = async (userId: number): Promise<any> => {
+    const response = await fetch(`${API_BASE_URL}/user/${userId}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch user");
+    }
+    return response.json();
+};
+
+
+
+
+
+

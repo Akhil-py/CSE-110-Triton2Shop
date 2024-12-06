@@ -3,7 +3,7 @@ import cors from 'cors';
 import { Database } from "sqlite";
 import { Request, Response } from 'express';
 
-import { createItemServer, getItems, getItem } from "./listings-utils";
+import { createItemServer, getItems, getItem, deleteItem} from "./listings-utils";
 const app = express();
 
 // Enable CORS and JSON parsing
@@ -29,6 +29,10 @@ export function createListingEndpoints(app: any, db: Database) {
         console.log("GET /listing/:listingId endpoint hit");
         console.log("Incoming request data:", req.params);
         getItem(req, res, db);
+    });
+
+    app.delete('/items/:itemId', (req: Request, res: Response) => {
+        deleteItem(req, res, db);
     });
 
 }
