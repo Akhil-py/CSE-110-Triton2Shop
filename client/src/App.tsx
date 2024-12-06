@@ -8,6 +8,7 @@ import { PostItem } from './Components/PostItem/PostItem';
 import RequestTracker from './Components/Request Tracker/requestTracker';
 import FavoritesList from "./Components/FavoritesList/FavoritesList";
 import ProductPage from "./Components/Product Page/product";
+import Profile from "./Components/Profile/Profile"
 function App() {
   return (
     <AppProvider>

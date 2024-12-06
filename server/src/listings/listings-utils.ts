@@ -207,4 +207,35 @@ export async function getItem(req: Request, res: Response, db: Database) {
         return res.status(500).json({ error: "Internal server error." }); 
     }
 }
+
+export async function deleteItem(req: Request, res: Response, db: Database) {
+    try {
+        const itemId = parseInt(req.params.itemId, 10); // itemId is passed as a parameter
+        if (isNaN(itemId)) {
+            return res.status(400).json({ error: "Invalid item ID." });
+        }
+
+        // Check if the item exists first
+        const queryCheckItem = `
+            SELECT id FROM Items WHERE id = ?;
+        `;
+        const item = await db.get(queryCheckItem, [itemId]);
+
+        if (!item) {
+            return res.status(404).json({ error: "Item not found." });
+        }
+
+        // If item exists, proceed to delete
+        const queryDeleteItem = `
+            DELETE FROM Items WHERE id = ?;
+        `;
+        await db.run(queryDeleteItem, [itemId]);
+
+        return res.status(200).json({ message: "Item deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting item:", error);
+        return res.status(500).json({ error: "Internal server error." });
+    }
+}
+
  

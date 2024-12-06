@@ -8,6 +8,8 @@ import { createListingEndpoints } from './listings/listings-endpoints';
 import { createRequestEndpoints } from "./requests/request-endpoints";
 import { createFavoriteEndpoints } from "./favorites/favorite-endpoints";
 import { createProfileEndpoints } from './profile/profile-endpoints';
+import { createRQTrackerEndpoints } from './rq-tracker/rq-tracker-endpoints';
+import { createTODOEndpoints } from './TODO/todo-endpoints';
 import listingsDB from "./createTable";
 import sequelize from './db';
 import User from './models/user';
@@ -136,6 +138,10 @@ app.listen(PORT, () => {
   createFavoriteEndpoints(app, db);
 
   createProfileEndpoints(app, db);
+
+  createRQTrackerEndpoints(app, db);
+
+  createTODOEndpoints(app, db);
  
   //createProductEndpoints(app, db);
 })();

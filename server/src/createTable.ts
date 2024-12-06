@@ -29,6 +29,7 @@ const listingsDB = async () => {
 //         condition TEXT CHECK (condition IN (${conditionValues})) NOT NULL
 //     );
 //  `);
+  await db.exec("PRAGMA foreign_keys = ON;");
   await db.exec(`
     CREATE TABLE IF NOT EXISTS Users (
         id INTEGER PRIMARY KEY,
@@ -71,7 +72,19 @@ const listingsDB = async () => {
         FOREIGN KEY (item) REFERENCES Items(id) ON DELETE CASCADE,
         FOREIGN KEY (buyer) REFERENCES Users(id)
     );
+
+    CREATE TABLE IF NOT EXISTS TODO (
+        id INTEGER PRIMARY KEY,
+        sellerId INTEGER NOT NULL,
+        purchaserId INTEGER NOT NULL,
+        itemName VARCHAR(255) NOT NULL,
+        FOREIGN KEY (sellerId) REFERENCES Users(id),
+        FOREIGN KEY (purchaserId) REFERENCES Users(id)
+    );
+
   `);
+  const result = await db.get("PRAGMA foreign_keys;");
+  console.log("Foreign key enforcement:", result);
 
  return db;
 };
