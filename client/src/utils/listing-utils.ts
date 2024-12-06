@@ -249,5 +249,18 @@ export const sendPurchaseEmail = async (sellerName: any, sellerEmail: any, buyer
 };
 
 
+export const createRequest = async (itemId: number, buyerId: number): Promise<{ item: number, buyer: number, status: string, dismissed: number }> => {
+    const response = await fetch(`${API_BASE_URL}/makerequest`, {
+method: "POST",
+headers: {
+    "Content-Type": "application/json",
+},
+body: JSON.stringify({ item: itemId, buyer: buyerId }),
+});
 
+if (!response.ok) {
+    throw new Error("Failed to create request");
+}
 
+return response.json();  // Returning the response in the same shape as what the backend sends
+};
