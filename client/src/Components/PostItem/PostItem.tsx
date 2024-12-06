@@ -14,6 +14,7 @@ export const PostItem: React.FC = () => {
     const [description, setDescription] = useState<string>('');
     const [images, setImages] = useState<File[]>([]);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+    const [imagePath, setImagePath] = useState<string | null>(null);
 
     // // Fetch the current user's ID when the component mounts
     // useEffect(() => {
@@ -31,7 +32,7 @@ export const PostItem: React.FC = () => {
 
 
     // Handle image upload
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
             const newImages = Array.from(files).slice(0, 10 - images.length);
@@ -49,6 +50,28 @@ export const PostItem: React.FC = () => {
             });
 
             setImages((prev) => [...prev, ...newImages]);
+
+            
+            //backend data for uploading images
+            const formData = new FormData();
+            Array.from(files).forEach((file) => {
+                formData.append('images', file); 
+            });
+
+            try {
+                const response = await fetch('http://localhost:5000/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+                console.log('Uploaded file paths:', data.filePaths);
+                if (data.filePaths.length > 0) {
+                    setImagePath(data.filePaths[0]);  // uses first image as display on homepage
+                }
+            } catch (error) {
+                console.error('Error uploading files:', error);
+            }
         }
     };
 
@@ -60,7 +83,7 @@ export const PostItem: React.FC = () => {
     // Handle form submission
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        //setCurUserId(1); // Placeholder, set current user ID correctly
+       // setCurUserId(1); // Placeholder, set current user ID correctly
         const id = await fetchCurrentUserId();
         console.log('Current user ID:', id);
         if (id !== null) {
@@ -93,7 +116,7 @@ export const PostItem: React.FC = () => {
             category: selectedCategory,
             condition: selectedCondition,
             description: description || '', // Optional, can be empty
-            itemPicture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s' // Static image URL placeholder
+            itemPicture: imagePath
         };
 
         try {
@@ -134,7 +157,14 @@ export const PostItem: React.FC = () => {
                         placeholder="Add Price"
                         type="number"
                         value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            // regex to allow only numbers with up to two decimal places
+                            const regex = /^\d*(\.\d{0,2})?$/;
+                            if (regex.test(value)) {
+                                setPrice(value);  
+                            }
+                        }}
                     />
                     <div className="image-upload">
                         <label htmlFor="file-upload" className="custom-file-input">

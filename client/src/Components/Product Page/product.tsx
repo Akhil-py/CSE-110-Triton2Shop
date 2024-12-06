@@ -4,19 +4,7 @@ import { Navbar } from '../Navbar/Navbar';
 import { useParams } from 'react-router-dom';
 import { MarketplaceListing, MarketplaceListingWithSeller } from '../../types/types';
 import { fetchListings, fetchItemWithSeller } from "../../utils/listing-utils";
-const GEISELIMAGE = '/chicken.jpeg'
-
-// Delete this???
-type ProductItemProps = {
-    title: string;
-    price: number;
-    imageUrl: string;
-    description: string;
-    distance: number;
-    sellerName: string;
-    sellerUsername: string;
-    sellerContact: string;
-};
+const API_BASE_URL = "http://localhost:5000";
 
 const ProductPage: React.FC = () => {
     const favouriteHandler = () => {
@@ -68,7 +56,7 @@ const ProductPage: React.FC = () => {
                     </div>
                     <div className='product-body'>
                         <div className='product-image'>
-                            <img src={product.itemPicture} alt={product.itemName} />
+                            <img src={`${API_BASE_URL}${product.itemPicture}`} alt={product.itemName} />
                         </div>
                         <div className='product-info'>
                             <div className='seller-info'>
@@ -88,7 +76,8 @@ const ProductPage: React.FC = () => {
                                 </div>
                             </div>
                             <div className='product-description'>
-                                <p>{product.condition}</p>
+                                <p>Condition: {product.condition}</p>
+                                <p>Description: {product.description}</p>
                             </div>
                         </div>
                     </div>
@@ -99,13 +88,3 @@ const ProductPage: React.FC = () => {
 };
 
 export default ProductPage;
-/*
-title = 'Title',
-    price = 69,
-    imageUrl = 'beeswax',
-    description = 'amogus',
-    distance = 69,
-    sellerName = 'John Smith',
-    sellerUsername = 'TritonLowBaller',
-    sellerContact = '123-456-7890'
-*/

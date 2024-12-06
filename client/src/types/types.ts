@@ -24,6 +24,7 @@ export type MarketplaceListing = {
     condition: Condition;
     itemName: string;
     itemPicture: string;
+    description: string;
 };
 
 export interface MarketplaceListingWithSeller {

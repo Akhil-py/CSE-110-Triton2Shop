@@ -11,6 +11,10 @@ import { createProfileEndpoints } from './profile/profile-endpoints';
 import listingsDB from "./createTable";
 import sequelize from './db';
 import User from './models/user';
+import { Database } from 'sqlite3';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -132,6 +136,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+
 // Initialize the database and start the server
 (async () => {
   const db = await listingsDB();
@@ -153,3 +158,58 @@ app.listen(PORT, () => {
  
   //createProductEndpoints(app, db);
 })();
+
+// Images are stored in /server/src/uploads with this
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
+// configure Multer with dynamic filename generation for image uploading
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //const uploadPath = path.join(__dirname, 'uploads');
+    const uploadPath = path.join(__dirname, '..', 'uploads');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); //default val, replaced later in app.post
+},
+});
+
+const upload = multer({ storage });
+const fileUploadTracker: Record<number, number> = {}; //tracks index of id to images uploaded
+
+// Image upload endpoint
+app.post('/upload', upload.array('images', 10), async (req, res, ) => {
+  try {
+    if (!req.files || !Array.isArray(req.files)) {
+      res.status(400).json({ error: 'No files uploaded or invalid format' });
+      return;
+    }
+      const itemsDb = await listingsDB();
+      const latestProduct = await itemsDb.get('SELECT MAX(id) AS id FROM Items');
+      const currentId = (latestProduct?.id ?? 0) + 1;
+
+    // Proceed with saving files and other logic
+    if (!fileUploadTracker[currentId]) {
+      fileUploadTracker[currentId] = 0;
+    }
+    const filePaths = req.files.map((file) => {
+      const ext = path.extname(file.originalname);
+      const index = fileUploadTracker[currentId];
+      const filename = `${currentId}_${index}${ext}`;
+      const uploadPath = path.join(__dirname, '..', 'uploads', filename);
+      
+      fs.renameSync(file.path, uploadPath); 
+      fileUploadTracker[currentId] += 1;
+      return `/uploads/${filename}`;
+    });
+
+    console.log('File paths:', filePaths);
+    res.status(200).json({ filePaths });
+} catch (error) {
+    console.error('Error fetching product ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
+}
+});
