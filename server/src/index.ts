@@ -9,6 +9,7 @@ import { createRequestEndpoints } from "./requests/request-endpoints";
 import { createFavoriteEndpoints } from "./favorites/favorite-endpoints";
 import { createProfileEndpoints } from './profile/profile-endpoints';
 import { createRQTrackerEndpoints } from './rq-tracker/rq-tracker-endpoints';
+import { createBuyEndpoints } from './buy/buy-endpoints';
 import { createTODOEndpoints } from './TODO/todo-endpoints';
 import listingsDB from "./createTable";
 import sequelize from './db';
@@ -159,6 +160,8 @@ app.listen(PORT, () => {
   createProfileEndpoints(app, db);
 
   createRQTrackerEndpoints(app, db);
+
+  createBuyEndpoints(app, db);
 
   createTODOEndpoints(app, db);
  
