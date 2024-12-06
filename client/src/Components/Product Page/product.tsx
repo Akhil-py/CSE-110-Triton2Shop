@@ -3,7 +3,7 @@ import './product.css';
 import { Navbar } from '../Navbar/Navbar';
 import { useParams } from 'react-router-dom';
 import { MarketplaceListing, MarketplaceListingWithSeller } from '../../types/types';
-import { fetchListings, fetchItemWithSeller } from "../../utils/listing-utils";
+import { fetchListings, fetchItemWithSeller, createRequest, fetchCurrentUserId } from "../../utils/listing-utils";
 const API_BASE_URL = "http://localhost:5000";
 
 const ProductPage: React.FC = () => {
@@ -11,9 +11,25 @@ const ProductPage: React.FC = () => {
         console.log('Favourited!');
     };
 
-    const buyHandler = () => {
-        console.log('Bought!');
+    // const buyHandler = () => {
+    //     console.log('Bought!');
+    // };
+    const buyHandler = async (itemId: number) => {
+        try {
+            const userId = await fetchCurrentUserId();
+            if (userId){
+                console.log('Bought!');
+                const requestData = await createRequest(itemId, userId);
+                console.log('Request created:', requestData);
+                // Navigate to the rq-tracker page after the request is successfully created
+                window.location.href = "http://localhost:3000/rq-tracker";
+            }
+        } catch (error) {
+            console.error('Error creating request:', error);
+            alert("Error requesting item");
+        }
     };
+       
     const { id } = useParams<{ id: string }>();
     const [listings, setListings] = useState<MarketplaceListing[]>([]);
     const [itemWithSeller, setItemWithSeller] = useState<MarketplaceListingWithSeller | null>(null);
@@ -71,8 +87,9 @@ const ProductPage: React.FC = () => {
                                 <div className='favourite-button'>
                                     <button onClick={favouriteHandler}>Favorite</button>
                                 </div>
-                                <div className='buy-button'>
-                                    <button onClick={buyHandler}>Buy</button>
+                                <div className="buy-button">
+                                    {/* Call buyHandler with the product's id and the buyer's id */}
+                                    <button onClick={() => buyHandler(product.id)}>Buy</button>
                                 </div>
                             </div>
                             <div className='product-description'>
