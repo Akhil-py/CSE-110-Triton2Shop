@@ -10,6 +10,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const { isLoggedIn } = useContext(AppContext);
 
     if (!isLoggedIn) {
+        console.log("User is not logged in");
         return <Navigate to="/login" replace />;
     }
 

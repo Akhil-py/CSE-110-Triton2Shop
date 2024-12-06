@@ -23,7 +23,7 @@ export const AppProvider = (props: any) => {
     const [maxPrice, setMaxPrice] = useState(Infinity);
     const [conditions, setConditions] = useState<Condition[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const setPriceRange = (min: number, max: number) => {
         setMinPrice(min);
         setMaxPrice(max);
@@ -40,10 +40,10 @@ export const AppProvider = (props: any) => {
 
                 if (response.ok) {
                     setIsLoggedIn(true);
-                    console.log("User is logged in");
+                    console.log("!!!!!!!!!!!!!!!!!!!! User is logged in");
                 } else {
                     setIsLoggedIn(false);
-                    console.log("User is not logged in");
+                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! User is not logged in");
                 }
             } catch (error) {
                 console.error("Error checking authentication status:", error);

@@ -20,7 +20,7 @@ const Profile = () => {
   }, []);
 
   if (!profile) {
-    return <div>Loading...</div>;
+    return <div>Hmm we encountered a problem...</div>;
   }
 
   return (
