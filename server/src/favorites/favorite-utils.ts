@@ -20,8 +20,7 @@ export async function getUserFavorites(req: Request, res: Response, db: Database
                 Items.condition,
                 Items.category,
                 Items.datePosted,
-                Items.quantity,
-                Items.isActive
+                Items.quantity
             FROM 
                 Favorites
             INNER JOIN 
@@ -98,5 +97,3 @@ export async function deleteFavorite(req: Request, res: Response, db: Database) 
         res.status(500).send({ error: `Failed to delete favorite` });
     }
 }
-
-

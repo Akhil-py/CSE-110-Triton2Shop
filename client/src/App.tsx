@@ -19,7 +19,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/postitem" element={<PostItem />} />
           <Route path="/rq-tracker" element={<RequestTracker />} />
-          <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/favorites" element={<FavoritesList/>} />
           <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
       </div>

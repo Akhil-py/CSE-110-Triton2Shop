@@ -1,23 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './FavoritesList.css';
 
-
-// Type for favorite items, including distance
+// Type for favorite items from the backend
 type FavoriteItem = {
-    name: string;
+    itemId: number;
+    itemName: string;
     price: number;
     description: string;
-    imageUrl: string;
-    distance: number;
+    itemPicture: string;
+    distance: number; // You can calculate this or fetch it if necessary
 };
 
 // Favorite List component
-const FavoriteList: React.FC<{ items: FavoriteItem[] }> = ({ items }) => {
-    const [favoriteItems, setFavoriteItems] = useState(items);
-    const [itemCount, setItemCount] = useState(items.length);
+const FavoriteList: React.FC<{ userId: number }> = ({ userId }) => {
+    const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);
+    const [itemCount, setItemCount] = useState(0);
+    const [error, setError] = useState<string | null>(null); // Add error state
 
-    //remove item function used later in handling
+    // Fetch favorite items from the backend
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const response = await fetch(`/favorites/${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch favorites'); // Throw error if response is not ok
+                }
+                const data = await response.json();
+                setFavoriteItems(data.favorites);
+                setItemCount(data.favorites.length);
+                setError(null); // Clear error state if fetch is successful
+            } catch (error: any) {
+                console.error('Error fetching favorites:', error);
+                setError('Failed to load favorite items. Please try again later.'); // Set error message for UI
+            }
+        };
+
+        fetchFavorites();
+    }, [userId]);
+
+    // Function to remove item from the list (local state only)
     const removeItem = (indexToRemove: number) => {
         setFavoriteItems(favoriteItems.filter((_, index) => index !== indexToRemove));
         setItemCount((prevCount) => prevCount - 1);
@@ -26,8 +48,8 @@ const FavoriteList: React.FC<{ items: FavoriteItem[] }> = ({ items }) => {
     return (
         <div className='MainBackground'>
             <h1 className='title'>Favorite Items</h1>
-            
-            {/*Section dedicated to the navbar*/}
+
+            {/* Section dedicated to the navbar */}
             <nav className="favoritenavbar">
                 <ul className="navbar-list">
                     <li className="navbar-item">
@@ -45,51 +67,32 @@ const FavoriteList: React.FC<{ items: FavoriteItem[] }> = ({ items }) => {
                 </ul>
             </nav>
 
-            {/*Section dedicated to formatting the items*/}
+            {/* Error message display */}
+            {error && <div className="error-message">{error}</div>}
+
+            {/* Section dedicated to formatting the items */}
             <div>
-    {favoriteItems.map((item, index) => (
-        <div key={index} className="favorite-item" data-testid="items">
-            <img src={item.imageUrl} alt={item.name} className="item-image" />
-            <div className="info-section">
-                <h2 className="item-name">{item.name}</h2>
-                <div className="distance">Distance: {item.distance} km</div>
-                <button className="buy-button">Buy</button>
-                <p className="description">{item.description}</p>
+                {favoriteItems.map((item, index) => (
+                    <div key={item.itemId} className="favorite-item" data-testid="items">
+                        <img src={item.itemPicture} alt={item.itemName} className="item-image" />
+                        <div className="info-section">
+                            <h2 className="item-name">{item.itemName}</h2>
+                            <div className="distance">Distance: {item.distance} km</div>
+                            <button className="buy-button">Buy</button>
+                            <p className="description">{item.description}</p>
+                        </div>
+                        <div className="remove-button" onClick={() => removeItem(index)} data-testid='x'> X </div>
+                    </div>
+                ))}
             </div>
-            <div className="remove-button" onClick={() => removeItem(index)} data-testid='x'> X </div>
-        </div>
-    ))}
-</div>
         </div>
     );
 };
 
-// Placeholder items for testing
-const placeholderItems: FavoriteItem[] = [
-    {
-        name: 'Happiness',
-        price: 1000000,
-        description: 'This is a description for product 1. This is a test to see how the placement of the description box is like when there is a very descriptive customer. Please I don’t want to do this anymore. I wanna drop this class.',
-        imageUrl: 'https://via.placeholder.com/100',
-        distance: 7000,
-    },
-    {
-        name: 'Freedom',
-        price: 150492,
-        description: 'I want to be done with class so bad. PLEASE SOMEBODY HELP ME',
-        imageUrl: 'https://via.placeholder.com/100',
-        distance: 10,
-    },
-    {
-        name: 'Legos',
-        price: 5,
-        description: 'Lowkey just want more Star Wars Legos',
-        imageUrl: 'https://via.placeholder.com/100',
-        distance: 55,
-    },
-];
+// Example userId for testing (you can pass the actual userId based on logged-in user)
+const userId = 1; // Replace with actual userId
 
 // Export for the App
 export default function App() {
-    return <FavoriteList items={placeholderItems} />;
+    return <FavoriteList userId={userId} />;
 }
