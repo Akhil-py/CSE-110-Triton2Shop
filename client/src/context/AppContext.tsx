@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Category, Condition, AppContextType } from "../types/types";
 
 const initialState: AppContextType = {
@@ -23,11 +23,37 @@ export const AppProvider = (props: any) => {
     const [maxPrice, setMaxPrice] = useState(Infinity);
     const [conditions, setConditions] = useState<Condition[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const setPriceRange = (min: number, max: number) => {
         setMinPrice(min);
         setMaxPrice(max);
     };
+
+    // Check if the user is logged in
+    useEffect(() => {
+        const checkAuthStatus = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/current-user", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    setIsLoggedIn(true);
+                    console.log("!!!!!!!!!!!!!!!!!!!! User is logged in");
+                } else {
+                    setIsLoggedIn(false);
+                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! User is not logged in");
+                }
+            } catch (error) {
+                console.error("Error checking authentication status:", error);
+                setIsLoggedIn(false);
+            }
+        };
+
+        checkAuthStatus();
+    }, []);
+
     return (
         <AppContext.Provider
             value={{

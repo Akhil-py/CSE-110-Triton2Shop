@@ -27,6 +27,20 @@ export type MarketplaceListing = {
     description: string;
 };
 
+export interface MarketplaceListingWithSeller {
+    id: number;
+    itemName: string;
+    price: number;
+    itemPicture: string;
+    category: Category;
+    condition: Condition;
+    description: string;
+    datePosted: string;
+    quantity: number;
+    sellerName: string;
+    sellerEmail: string;
+}
+
 export interface AppContextType {
     category: Category;
     setCategory: (category: Category) => void;

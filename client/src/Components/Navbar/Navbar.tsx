@@ -3,19 +3,36 @@ import logo_light from "../../assets/Horizontal_Blue_Yellow.png"
 import search_icon_light from "../../assets/search-w.png"
 import { useContext, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Category } from '../../types/types'
+
 export const Navbar: React.FC = () => {
     const { category, setCategory, searchQuery, setSearchQuery, isLoggedIn, setIsLoggedIn } = useContext(AppContext)
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const navigate = useNavigate();
+
 
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
     };
 
-    const handleSignOut = () => {
-        setIsLoggedIn(false);
-        // Additional sign-out logic (e.g., clearing tokens) can go here.
+    const handleSignOut = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                setIsLoggedIn(false);
+                setDropdownVisible(false);
+                navigate('/login');
+            } else {
+                console.error('Failed to log out');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
     };
     const dropdownItems = [
         { label: 'Post Item', action: () => (window.location.href = '/postitem') },

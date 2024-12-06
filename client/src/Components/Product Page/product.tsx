@@ -16,6 +16,7 @@ const ProductPage: React.FC = () => {
     };
     const { id } = useParams<{ id: string }>();
     const [listings, setListings] = useState<MarketplaceListing[]>([]);
+    const [itemWithSeller, setItemWithSeller] = useState<MarketplaceListingWithSeller | null>(null);
     useEffect(() => {
         const loadListings = async () => {
             try {
@@ -26,8 +27,20 @@ const ProductPage: React.FC = () => {
             }
         };
 
-    loadListings(); 
-}, []);
+        const loadItemWithSeller = async () => {
+            try {
+                const fetchedItemWithSeller = await fetchItemWithSeller(parseInt(id || '9999'));
+                setItemWithSeller(fetchedItemWithSeller);
+                console.log("product id: ", id);
+                console.log("fetchedItemWithSeller Data for id: ", fetchedItemWithSeller);
+            } catch (error) {
+                console.error("Failed to load item with seller:", error);
+            }
+        };
+
+        loadListings(); 
+        loadItemWithSeller();
+}, [id]);
     const product = listings.find((item) => item.id === parseInt(id || '', 10));
     if (!product) {
         return <div>Product not found</div>;
@@ -48,16 +61,15 @@ const ProductPage: React.FC = () => {
                         <div className='product-info'>
                             <div className='seller-info'>
                                 <div className='seller-details'>
-                                    <p id='name'>Name: { }</p>
-                                    <p id='username'>Username: { }</p>
-                                    <p id='contact'>Contact Info: { }</p>
+                                    <p id='name'>Name: { itemWithSeller?.sellerName }</p>
+                                    <p id='username'>Email: { itemWithSeller?.sellerEmail }</p>
                                 </div>
                                 <p id='price'>Price: ${product.price}</p>
                                 <p id='distance'>Distance: { } miles</p>
                             </div>
                             <div className='product-buttons'>
                                 <div className='favourite-button'>
-                                    <button onClick={favouriteHandler}>Favourite</button>
+                                    <button onClick={favouriteHandler}>Favorite</button>
                                 </div>
                                 <div className='buy-button'>
                                     <button onClick={buyHandler}>Buy</button>

@@ -1,4 +1,4 @@
-import { MarketplaceListing, Category, Condition } from "../types/types";
+import { MarketplaceListing, MarketplaceListingWithSeller, Category, Condition } from "../types/types";
 
 const API_BASE_URL = "http://localhost:5000";
 
@@ -77,6 +77,31 @@ export const fetchCurrentUserId = async (): Promise<number | null> => {
         return data.userId;
     } catch (error) {
         console.error("Error fetching current user ID:", error);
+        return null;
+    }
+};
+
+/**
+ * Fetches a single item by ID along with seller details.
+ * @param {number} id - The ID of the item to fetch.
+ * @returns {Promise<MarketplaceListingWithSeller | null>} The item with seller details or null if not found.
+ */
+export const fetchItemWithSeller = async (id: number): Promise<MarketplaceListingWithSeller | null> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/listing/${id}`, {
+            method: "GET",
+            credentials: "include", // cookies for session authentication (might not be needed)
+        });
+
+        if (!response.ok) {
+            console.warn("Failed to fetch item:", response.statusText);
+            return null;
+        }
+
+        const data = await response.json();
+        return data.item as MarketplaceListingWithSeller;
+    } catch (error) {
+        console.error("Error fetching item:", error);
         return null;
     }
 };
