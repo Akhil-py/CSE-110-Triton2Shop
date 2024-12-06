@@ -102,7 +102,7 @@
 import React, { useState, useEffect } from 'react';
 import './requestTracker.css';
 import { Navbar } from '../Navbar/Navbar';
-import { fetchCurrentUserId, fetchRequestsSent, fetchRequestsReceived, deleteRequest, createTodo, deleteItem, fetchUser } from '../../utils/listing-utils'; // import the API functions
+import { fetchCurrentUserId, fetchRequestsSent, fetchRequestsReceived, deleteRequest, createTodo, deleteItem, fetchUser, sendPurchaseEmail } from '../../utils/listing-utils'; // import the API functions
 
 type SellItem = {
     itemName: string;
@@ -203,6 +203,7 @@ const RequestTracker: React.FC = () => {
                 
                 //Show alert with transaction details
                 //TODO: instead of sending out an alert, send out an email to both the purchaserEmail and sellerEmail (from above) letting them know that they should contact each other
+                sendPurchaseEmail(sellerName, sellerEmail, purchaserName, purchaserEmail);
                 alert(
                     `"${itemName}" has been bought by "${purchaserName}". Please contact them at their email: "${purchaserEmail}" to arrange the details for the transaction (ie payment, time, location, etc). "${itemName}" and all its corresponding information has also been deleted and will not be displayed any longer.`
                 );

@@ -235,7 +235,18 @@ export const fetchUser = async (userId: number): Promise<any> => {
     return response.json();
 };
 
-
+export const sendPurchaseEmail = async (sellerName: any, sellerEmail: any, buyerName: any, buyerEmail: any) => {
+    const response = await fetch(`${API_BASE_URL}/buy`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sellerName, sellerEmail, buyerName, buyerEmail }),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to send purchase email");
+    }
+};
 
 
 
