@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './product.css';
 import { Navbar } from '../Navbar/Navbar';
 import { useParams } from 'react-router-dom';
-import { MarketplaceListing } from '../../types/types';
-import { fetchListings } from "../../utils/listing-utils";
+import { MarketplaceListing, MarketplaceListingWithSeller } from '../../types/types';
+import { fetchListings, fetchItemWithSeller } from "../../utils/listing-utils";
 const API_BASE_URL = "http://localhost:5000";
 
 const ProductPage: React.FC = () => {
@@ -88,13 +88,3 @@ const ProductPage: React.FC = () => {
 };
 
 export default ProductPage;
-/*
-title = 'Title',
-    price = 69,
-    imageUrl = 'beeswax',
-    description = 'amogus',
-    distance = 69,
-    sellerName = 'John Smith',
-    sellerUsername = 'TritonLowBaller',
-    sellerContact = '123-456-7890'
-*/
